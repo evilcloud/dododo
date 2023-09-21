@@ -17,7 +17,7 @@ import qualified TaskParser
 -- Function to add a task to the current file
 addTaskToCurrent :: Task.Task -> IO ()
 addTaskToCurrent task = do
-  let formattedTask = Task.formatTask task
+  let formattedTask = Task.formatTask task ++ "\n"
   FileManager.appendToFile Config.current formattedTask
 
 -- Function to get all tasks from the current file

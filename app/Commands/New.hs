@@ -27,4 +27,4 @@ new :: String -> IO ()
 new message = do
   task <- createTask message
   TasksIO.addTaskToCurrent task
-  putStrLn $ Task.formatTask task
+  putStrLn $ Task.formatTask task ++ "\n"
