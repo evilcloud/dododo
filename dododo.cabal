@@ -94,6 +94,7 @@ executable dododo
                     , split
                     , regex-tdfa
                     , containers
+                    , process
 
     -- Directories containing source files.
     hs-source-dirs:   app

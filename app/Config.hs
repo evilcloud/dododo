@@ -22,7 +22,9 @@ commandOptions =
       ("last", ["last"]),
       ("delete", ["delete", "remove"]),
       ("unlast", ["unlast", "reopen", "undo"]),
-      ("help", ["help", "h", "?"])
+      ("help", ["help", "h", "?"]),
+      ("editor", ["editor"]),
+      ("config", ["config", "editconfig"])
     ]
 
 -- Paths to the files with current tasks and tasks beyond lifetime

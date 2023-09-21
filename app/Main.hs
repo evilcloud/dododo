@@ -1,13 +1,16 @@
 -- Main.hs
 
 import qualified Commands.Delete as Delete
+-- import Data.List (elem)
+
+import qualified Commands.EditConfig as EditConfig
+import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
 import qualified Commands.ListTasks as ListTasks
 import qualified Commands.New as New
 import qualified Commands.Status as Status
 import qualified Config
 import Control.Monad (void)
--- import Data.List (elem)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 import qualified FindTask
@@ -35,6 +38,8 @@ main = do
             "last" -> LastTask.statusLastOpen (unwords args')
             "unlast" -> LastTask.openLastStatus
             "delete" -> Delete.deleteTasks args'
+            "editor" -> void Editor.chooseEditor
+            "config" -> void EditConfig.openConfig
             _ -> putStrLn "Unknown command"
         "help" -> Help.printHelp
         _ -> putStrLn "Unknown command"
