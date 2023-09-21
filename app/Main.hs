@@ -7,7 +7,7 @@ import qualified Commands.New as New
 import qualified Commands.Status as Status
 import qualified Config
 import Control.Monad (void)
-import Data.List (elem)
+-- import Data.List (elem)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 import qualified FindTask

@@ -58,4 +58,5 @@ formatTask task =
            then separator ++ status task ++ " " ++ statusDuration task
            else ""
        )
-    ++ "\n"
+
+-- ++ "\n"
