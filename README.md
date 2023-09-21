@@ -1,8 +1,10 @@
-# DoDoDo - a microtask manager ad reductum
+# DoDoDo - ephermal microtask manager ad reductum
 
 ## What is this?
 
-A CLI microtask manager designed for simplicity. It acknowledges the temporary nature of tasks, encouraging users to see them as short-lived actions rather than overwhelming commitments. With Dododo, tasks are tools, not treasures. They serve a purpose and then move on. In a world where life's chaos isn't always reflected in systematic methods, Dododo stands against the tyranny of productivity.
+DoDoDo is a CLI microtask manager designed for simplicity. It acknowledges the fleeting nature of tasks, encouraging users to view them as brief actions rather than daunting commitments. At their core, tasks are human-made constructs — set up to help us organize life's complexities. However, these arbitrary criteria often become tyrants of our attention, emotions, guilt, and distractions, pulling us away from the actual goals we set out to achieve.
+
+With DoDoDo, tasks are tools, not treasures. They serve a purpose and then move on. Life is chaotic, and the strictness of tasks in such a world is absurd. This tool hopes to be a step towards liberation from the tyranny of productivity.
 
 ## Why Haskell?
 
