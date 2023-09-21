@@ -6,7 +6,7 @@ where
 import qualified Generator
 import qualified Task
 import qualified TasksIO
-import Timestamp
+import Timestamp (createTimestamp)
 
 -- Function to create a new task
 createTask :: String -> IO Task.Task
