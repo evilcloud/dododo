@@ -2,6 +2,7 @@ module Timestamp
   ( createTimestamp,
     timeDiffCasual,
     parseTimestamp,
+    diffLocalTime,
   )
 where
 

@@ -13,9 +13,11 @@ import Data.Maybe (fromMaybe)
 import qualified FindTask
 import qualified LastTask
 import System.Environment (getArgs)
+import qualified TaskArchiver
 
 main :: IO ()
 main = do
+  TaskArchiver.archiveOldTasks
   args <- getArgs
   case args of
     [] -> ListTasks.allStdOut

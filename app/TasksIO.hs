@@ -4,6 +4,7 @@ module TasksIO
     findTaskById,
     updateTaskInCurrent,
     deleteTaskInCurrent,
+    addTaskToPast,
   )
 where
 
@@ -27,30 +28,37 @@ addTaskToCurrent :: Task.Task -> IO ()
 addTaskToCurrent task = do
   tasks <- getAllTasksFromCurrent
   let updatedTasks = task : tasks
-  let sortedTasks = map Task.formatTask $ sortTasks updatedTasks
-  let content = unlines sortedTasks
-  FileManager.updateFile Config.current content
+  writeTasksToFile Config.current updatedTasks
 
 -- Function to update a task in the current file
 updateTaskInCurrent :: Task.Task -> IO ()
 updateTaskInCurrent updatedTask = do
   tasks <- getAllTasksFromCurrent
   let updatedTasks = map (\task -> if Task.taskId task == Task.taskId updatedTask then updatedTask else task) tasks
-  let sortedTasks = map Task.formatTask $ sortTasks updatedTasks
-  let content = unlines sortedTasks
-  FileManager.updateFile Config.current content
+  writeTasksToFile Config.current updatedTasks
 
 deleteTaskInCurrent :: String -> IO ()
 deleteTaskInCurrent taskIdToDelete = do
   tasks <- getAllTasksFromCurrent
   let updatedTasks = filter (\task -> Task.taskId task /= taskIdToDelete) tasks
-  let sortedTasks = map Task.formatTask $ sortTasks updatedTasks
-  let content = unlines sortedTasks
-  FileManager.updateFile Config.current content
+  writeTasksToFile Config.current updatedTasks
+
+-- Function to add a task to the past file
+addTaskToPast :: Task.Task -> IO ()
+addTaskToPast task =
+  let formattedTask = Task.formatTask task ++ "\n"
+   in FileManager.appendToFile Config.past formattedTask
 
 -- Function to find a task by ID
 findTaskById :: String -> [Task.Task] -> Maybe Task.Task
 findTaskById id = find ((== id) . Task.taskId)
+
+-- Function to write tasks to a file
+writeTasksToFile :: String -> [Task.Task] -> IO ()
+writeTasksToFile filename tasks = do
+  let sortedTasks = map Task.formatTask $ sortTasks tasks
+  let content = unlines sortedTasks
+  FileManager.updateFile filename content
 
 -- Function to sort tasks by creation timestamp
 sortTasks :: [Task.Task] -> [Task.Task]

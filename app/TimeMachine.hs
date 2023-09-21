@@ -1,6 +1,7 @@
 module TimeMachine
   ( casualDuration,
     casualTime,
+    parseTimestamp,
   )
 where
 
@@ -46,7 +47,7 @@ casualTime timestampStr = do
   return $ case daysDiff of
     0 -> "Today " ++ timeStr
     1 -> "Yesterday " ++ timeStr
-    _ | daysDiff < 7 -> formatTime defaultTimeLocale "%A @ %H:%M" timestamp
+    _ | daysDiff < 7 -> formatTime defaultTimeLocale "%A %H:%M" timestamp
     _ | sameMonth sanitizedCurrentTime timestamp -> formatTime defaultTimeLocale "%dth" timestamp
     _ -> formatTime defaultTimeLocale "%d %B" timestamp
 
