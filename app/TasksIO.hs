@@ -5,6 +5,7 @@ module TasksIO
     updateTaskInCurrent,
     deleteTaskInCurrent,
     addTaskToPast,
+    getAllTaskIds,
   )
 where
 
@@ -63,3 +64,6 @@ writeTasksToFile filename tasks = do
 -- Function to sort tasks by creation timestamp
 sortTasks :: [Task.Task] -> [Task.Task]
 sortTasks = sortOn Task.creationTimestamp
+
+getAllTaskIds :: IO [String]
+getAllTaskIds = map Task.taskId <$> getAllTasksFromCurrent
