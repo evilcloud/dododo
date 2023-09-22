@@ -1,0 +1,16 @@
+HELP INFO
+
+for main commands call HELP COMMANDS
+
+The software works from command line and from its own shell. In both cases the commands are the same, but in shell you don't have to enter `dododo` every time you do anything. This also means that ENTER will be automatically the list of current tasks.
+
+Tasks:
+All tasks are automatically assigned timestamp and a taskID. At the creation the tasks don't carry a status, aka they are "open". Any task can have an arbitrary (single word) status attached, which makes it a "marked" task. In principle the only difference between open and closed tasks is the way they are displayed on the screen - the open tasks are prioritised by being displayed closer to the command line, while marked tasks are bunched together above.
+
+Lifetime:
+All tasks, regardless of their status or lack thereof, have exactly the same lifetime (default is 7 days), after which the task is flushed away from the main file. This is the guiding principle of the software - if task has not been completed within the lifetime, it wasn't that important. If the task is important, user is welcome to reimagine, rethink, and retype the task again, as if it's new. The tasks flushed are shown - once - when this happens.
+
+Storage:
+Portability is one of the main principles of DoDoDo's design philosophy. All current tasks are stored in a `current.txt` - a text file, with a clear structure. It can be edited by any means and DoDoDo provides a shortcut to access the file.
+
+A second file, `past.txt` stores the tasks with expired lifetime. DoDoDo does not provide means to edit the file, so this is up to user now.

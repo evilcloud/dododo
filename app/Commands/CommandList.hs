@@ -28,8 +28,8 @@ processCommand (command : args) = do
         "done" -> Done.doneCommand args
         "undone" -> Undone.undoneCommand args
         "delete" -> Delete.deleteTasks args
+        "help" -> Help.printHelp args
         "editor" -> void Editor.chooseEditor
         "config" -> void EditConfig.openConfig
         _ -> putStrLn "Unknown command"
-    "help" -> Help.printHelp
     _ -> putStrLn "Unknown command"
