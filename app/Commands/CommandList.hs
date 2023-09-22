@@ -1,18 +1,18 @@
 module Commands.CommandList where
 
 import qualified Commands.Delete as Delete
+import qualified Commands.Done as Done
 import qualified Commands.EditConfig as EditConfig
 import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
 import qualified Commands.ListTasks as ListTasks
 import qualified Commands.New as New
-import qualified Commands.Status as Status
+import qualified Commands.Undone as Undone
 import qualified Config
 import Control.Monad (void)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 import qualified FindTask
-import qualified LastTask
 import System.IO (hFlush, stdout)
 
 processCommand :: [String] -> IO ()
@@ -25,10 +25,8 @@ processCommand (command : args) = do
       case command of
         "new" -> void $ New.new (unwords args)
         "task" -> FindTask.findAndPrintTaskById (head args)
-        "status" -> Status.changeStatus (head args) (unwords (tail args))
-        "done" -> Status.changeStatus (head args) "done"
-        "last" -> LastTask.statusLastOpen (unwords args)
-        "unlast" -> LastTask.openLastStatus
+        "done" -> Done.doneCommand args
+        "undone" -> Undone.undoneCommand args
         "delete" -> Delete.deleteTasks args
         "editor" -> void Editor.chooseEditor
         "config" -> void EditConfig.openConfig

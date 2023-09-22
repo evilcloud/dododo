@@ -21,7 +21,7 @@ commandOptions =
       ("open", ["open", "reopen"]),
       ("last", ["last"]),
       ("delete", ["delete", "remove"]),
-      ("unlast", ["unlast", "reopen", "undo"]),
+      ("undone", ["undone", "unlast", "reopen", "undo"]),
       ("help", ["help", "h", "?"]),
       ("editor", ["editor"]),
       ("config", ["config", "editconfig"])

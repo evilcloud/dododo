@@ -65,13 +65,12 @@ executable dododo
     other-modules:    Generator
                     , Commands.Help
                     , Commands.New
-                    , Commands.Status
                     , Commands.Delete
                     , Commands.ListTasks
-                    , LastTask
                     , Config
                     , FileManager
                     , Generator
+                    , Status
                     , Task
                     , TasksIO
                     , Timestamp

@@ -1,4 +1,4 @@
-module Commands.Status
+module Status
   ( changeStatus,
   )
 where
