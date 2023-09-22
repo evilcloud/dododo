@@ -94,6 +94,7 @@ executable dododo
                     , regex-tdfa
                     , containers
                     , process
+                    , haskeline
 
     -- Directories containing source files.
     hs-source-dirs:   app

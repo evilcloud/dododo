@@ -9,6 +9,5 @@ main = do
   args <- getArgs
   case args of
     ("shell" : _) -> do
-      putStrLn "DoDoDo shell. 'quit' to exit."
       Shell.shellLoop
     _ -> CommandList.processCommand args
