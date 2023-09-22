@@ -12,4 +12,16 @@ Because why the fuck not? It's a beautiful language, not terribly complex, and i
 
 ## How to use it?
 
-Tell you later, when I am done.
+Below is the basic set of commands. They are infinitley expandable, and will be part of the very editable Config file.
+
+`new` [task message] - the genesis of the task
+
+`done` [optional: taskID optional: status] - marks the task with the status, and withit deprioritising it in the view. `done` with no arguments will mark with status `done` the latest task
+
+`undone` [optional: taskID] - reopens the task by removing the status. `undone` with no arguments will open the latest market task moving it back to the prioritised list
+
+`help` - this help
+
+`edit` - a shortcut to the text editor with the `current.txt` loaded, in case the user wants to edit tasks manually. Edit will automatically invoke default editor. If such is not defined, the software will invoke `editor`
+
+`editor` - an editor choser. DoDoDo will check for the presence of the most common editors, including vim, nvim, nano, emacs etc. and let user pick what they like
