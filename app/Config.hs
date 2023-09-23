@@ -24,6 +24,7 @@ commandOptions =
       ("undone", ["undone", "unlast", "reopen", "undo"]),
       ("help", ["help", "h", "?"]),
       ("editor", ["editor"]),
+      ("edit", ["edit"]),
       ("config", ["config", "editconfig"])
     ]
 

@@ -18,7 +18,7 @@ isAvailable = fmap isJust . findExecutable
 -- Function to get all available editors
 getAvailableEditors :: IO [String]
 getAvailableEditors = do
-  let editors = ["vim", "nvim", "neovide", "nano", "emacs", "code", "subl", "atom"]
+  let editors = ["vim", "ed", "nvim", "neovide", "nano", "emacs", "code", "subl", "atom"]
   filterM isAvailable editors
 
 -- Function to get the default system editor

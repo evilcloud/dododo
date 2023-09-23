@@ -1,18 +1,3 @@
--- -- Delete.hs
--- module Commands.Delete
---   ( deleteTasks,
---   )
--- where
-
--- import Data.List (elem)
--- import Filter (findByTaskId)
--- import Task (Task (..))
--- import TasksIO (deleteTaskInCurrent, getAllTasksFromCurrent) -- Updated import
-
--- deleteTasks :: [String] -> IO ()
--- deleteTasks taskIds = mapM_ TasksIO.deleteTaskInCurrent taskIds -- Updated function call
-
--- Delete.hs
 module Commands.Delete
   ( deleteTasks,
   )

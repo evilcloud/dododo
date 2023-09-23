@@ -2,6 +2,7 @@ module Commands.CommandList where
 
 import qualified Commands.Delete as Delete
 import qualified Commands.Done as Done
+import qualified Commands.Edit as Edit
 import qualified Commands.EditConfig as EditConfig
 import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
@@ -31,5 +32,6 @@ processCommand (command : args) = do
         "help" -> Help.printHelp args
         "editor" -> void Editor.chooseEditor
         "config" -> void EditConfig.openConfig
+        "edit" -> Edit.editTaskFile args
         _ -> putStrLn "Unknown command"
     _ -> putStrLn "Unknown command"
