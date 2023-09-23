@@ -5,6 +5,7 @@ import Control.Monad.IO.Class (liftIO)
 import Data.List (isPrefixOf)
 import System.Console.Haskeline
 import System.Console.Haskeline.Completion
+import System.Process (system)
 import qualified TasksIO
 
 mySettings :: [String] -> Settings IO
@@ -24,6 +25,7 @@ shellLoop = do
   putStrLn "DoDoDo shell"
   putStrLn ""
   putStrLn "'quit' to exit the shell"
+  putStrLn "'clear' clear shell screen"
   putStrLn "<TAB> to autocomplete taskID"
   putStrLn "\ESC[m"
   taskIds <- TasksIO.getAllTaskIds
@@ -34,6 +36,10 @@ shellLoop = do
       case minput of
         Nothing -> return ()
         Just "quit" -> return ()
+        Just "clear" -> do
+          _ <- liftIO $ system "clear" -- On Unix-like systems
+          -- _ <- liftIO $ system "cls"  -- On Windows
+          loop
         Just input -> do
           liftIO $ processCommand (words input)
           loop
