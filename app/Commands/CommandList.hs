@@ -9,6 +9,7 @@ import qualified Commands.Help as Help
 import qualified Commands.ListTasks as ListTasks
 import qualified Commands.New as New
 import qualified Commands.Undone as Undone
+import qualified Commands.Unknown as Unknown
 import qualified Config
 import Control.Monad (void)
 import qualified Data.Map as M
@@ -19,6 +20,7 @@ import System.IO (hFlush, stdout)
 processCommand :: [String] -> IO ()
 processCommand [] = ListTasks.allStdOut
 processCommand (command : args) = do
+  putStrLn "\n"
   let options = fromMaybe [] (M.lookup command Config.commandOptions)
   let matchOption x = x `elem` options
   case command of
@@ -33,5 +35,6 @@ processCommand (command : args) = do
         "editor" -> void Editor.chooseEditor
         "config" -> void EditConfig.openConfig
         "edit" -> Edit.editTaskFile args
-        _ -> putStrLn "Unknown command"
-    _ -> putStrLn "Unknown command"
+        _ -> Unknown.handleUnknownCommand
+    _ -> Unknown.handleUnknownCommand
+  putStrLn "\n"
