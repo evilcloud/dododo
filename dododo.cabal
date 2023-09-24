@@ -63,22 +63,29 @@ executable dododo
 
     -- Modules included in this executable, other than Main.
     other-modules:    Generator
-                    , Commands.Help
-                    , Commands.New
+                    , Commands.CommandList
                     , Commands.Delete
+                    , Commands.Done
+                    , Commands.Edit
+                    , Commands.EditConfig
+                    , Commands.Editor
+                    , Commands.Help
                     , Commands.ListTasks
+                    , Commands.New
+                    , Commands.Shell
+                    , Commands.Undone
+                    , Commands.Unknown
                     , Config
                     , FileManager
-                    , Generator
-                    , Status
-                    , Task
-                    , TasksIO
-                    , Timestamp
-                    , TaskParser
                     , Filter
                     , FindTask
-                    , Commands.ListTasks
+                    , Status
+                    , Task
+                    , TaskArchiver
+                    , TaskParser
+                    , TasksIO
                     , TimeMachine
+                    , Timestamp
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
