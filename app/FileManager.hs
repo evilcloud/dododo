@@ -3,11 +3,13 @@ module FileManager
     appendToFile,
     overwriteFile,
     updateFile,
+    fileExists,
+    normalizePath,
   )
 where
 
 import Data.List (isPrefixOf)
-import System.Directory (getHomeDirectory)
+import System.Directory (doesFileExist, getHomeDirectory)
 import System.FilePath ((</>))
 import System.IO
 
@@ -49,3 +51,9 @@ normalizePath path = do
     if "~/" `isPrefixOf` path
       then homeDirectory </> drop 2 path
       else path
+
+-- Check if file exists
+fileExists :: FilePath -> IO Bool
+fileExists path = do
+  normalizedPath <- normalizePath path
+  doesFileExist normalizedPath

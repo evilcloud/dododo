@@ -102,6 +102,10 @@ executable dododo
                     , containers
                     , process
                     , haskeline
+                    , yaml
+                    , bytestring
+                    , aeson
+                    , aeson-pretty
 
     -- Directories containing source files.
     hs-source-dirs:   app
