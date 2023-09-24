@@ -6,6 +6,20 @@ DoDoDo is a CLI microtask manager designed for simplicity. It acknowledges the f
 
 With DoDoDo, tasks are tools, not treasures. They serve a purpose and then move on. Life is chaotic, and the strictness of tasks in such a world is absurd. This tool hopes to be a step towards liberation from the tyranny of productivity.
 
+## Key Features:
+
+- Stateless Operation: Each invocation is a fresh start. There's no background process, no lingering presence. It serves, then ceases.
+- Ephemeral Task Nature: Tasks are transient, with a predefined lifetime, emphasizing the impermanence of tasks and the value of the present.
+- Portable Design: Tasks are stored in a straightforward text file, ensuring user flexibility and control.
+
+## Philosophy:
+
+DoDoDo is a tool in the purest sense. It doesn't gamify, doesn't judge, and doesn't impose. It's devoid of any mechanisms that might manipulate user behavior or emotions. The user owes nothing to the software; the software exists solely to serve the user's needs, on the user's terms.
+
+## Exploration:
+
+Users are encouraged to engage with this unique approach and share their experiences. Feedback will shape the future of DoDoDo, ensuring it remains aligned with its core ethos.
+
 ## Why Haskell?
 
 Because why the fuck not? It's a beautiful language, not terribly complex, and is almost guaranteed to work with no bugs, **_if_** you get it to compile. I don't really know Haskell that well at all, and I had heavily used ChatGPT to help me out. But so what? The architecture is mine, the hand-holding is mine, and the software is mine too.
