@@ -13,7 +13,7 @@ import qualified Config
 import Data.List (find, sortOn)
 import Data.Maybe (mapMaybe)
 import qualified FileManager
-import qualified Task
+import qualified Task.Task as Task
 import qualified TaskParser
 
 -- Function to get all tasks from the current file

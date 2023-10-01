@@ -7,7 +7,7 @@ where
 
 import Data.List (intercalate)
 import qualified Filter
-import qualified Task
+import qualified Task.Task as Task
 import qualified TasksIO
 import Text.Printf (printf)
 import qualified TimeMachine

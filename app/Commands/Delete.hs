@@ -5,7 +5,7 @@ where
 
 import Data.List (elem)
 import Filter (findByTaskId)
-import Task (Task (..), formatTask) -- Updated import
+import qualified Task.Task as Task (Task (..), formatTask)
 import TasksIO (deleteTaskInCurrent, findTaskById, getAllTasksFromCurrent) -- Updated import
 
 deleteTasks :: [String] -> IO ()
@@ -17,6 +17,6 @@ deleteTasks taskIds = do
           Nothing -> putStrLn $ "Task ID " ++ taskId ++ " is not found\nNothing deleted"
           Just task -> do
             deleteTaskInCurrent taskId
-            putStrLn $ "Deleted:\n" ++ (formatTask task)
+            putStrLn $ "Deleted:\n" ++ (Task.formatTask task)
     )
     taskIds

@@ -1,4 +1,4 @@
-module Task
+module Task.Task
   ( Task (..),
     updateTask,
     formatTask,
