@@ -1,57 +1,43 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Config.Config
-  ( commandOptions,
-    lifetime,
-    taskInternalSeparator,
-    past,
-    current,
-    sync,
-    enterSync,
-    loadOrRestoreConfigIO,
-    resetToDefault,
+  ( Config,
+    getConfig,
+    updateConfig,
   )
 where
 
-import Config.ConfigIO (loadConfig, saveConfig)
-import Config.Default (Config (..), defaultConfig)
-import Control.Monad (void, when)
-import Data.Aeson (decodeFileStrict, encodeFile)
-import FileManager (fileExists)
-import System.Directory (doesFileExist)
+import Config.Default (defaultConfig)
+import Data.ConfigFile
+import Data.Either
+import Data.Either.Utils (forceEither)
+import FileManager (fileExists, overwriteFile, readFromFile)
 
--- Path to the configuration file
-configPath :: FilePath
-configPath = "~/.config/dododo/config.json"
+type Config = ConfigParser
 
-loadOrRestoreConfigIO :: IO ()
-loadOrRestoreConfigIO = do
-  configExists <- fileExists configPath
-  if configExists
+configFilePath = "~/.config/dododo/config.ini"
+
+getConfig :: IO Config
+getConfig = do
+  exists <- fileExists configFilePath
+  if exists
     then do
-      eConfig <- loadConfig configPath
-      case eConfig of
-        Left err -> putStrLn ("Error loading config: " ++ err) >> restoreDefault
-        Right config -> putStrLn ("Config loaded: " ++ show config)
+      content <- readFromFile configFilePath
+      let result = readstring emptyCP content
+      return $ forceEither result
     else do
-      putStrLn "Configuration file not found. Creating the default configuration..."
-      restoreDefault
-  where
-    restoreDefault = saveConfig configPath defaultConfig >> putStrLn "Default configuration restored."
+      writeConfig defaultConfig
+      return defaultConfig
 
--- Update the sync field and save the new configuration
-enterSync :: String -> IO ()
-enterSync newSync = do
-  eConfig <- loadConfig configPath
-  case eConfig of
-    Left err -> putStrLn ("Error loading config: " ++ err)
-    Right config -> do
-      let newConfig = config {sync = newSync}
-      saveConfig configPath newConfig
-      putStrLn ("Sync updated: " ++ show newConfig)
+writeConfig :: Config -> IO ()
+writeConfig config = do
+  let content = to_string config
+  overwriteFile configFilePath content
 
--- Reset configuration to default
-resetToDefault :: IO ()
-resetToDefault = do
-  saveConfig configPath defaultConfig
-  putStrLn "Configuration reset to default."
+updateConfig :: SectionSpec -> OptionSpec -> String -> IO Config
+updateConfig section option newValue = do
+  config <- getConfig
+  let updatedConfig = set config section option newValue
+  case updatedConfig of
+    Left _ -> return config
+    Right newConfig -> do
+      writeConfig newConfig
+      return newConfig

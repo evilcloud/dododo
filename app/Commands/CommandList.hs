@@ -8,6 +8,7 @@ import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
 import qualified Commands.ListTasks as ListTasks
 import qualified Commands.New as New
+import qualified Commands.Sync as Sync
 import qualified Commands.Undone as Undone
 import qualified Commands.Unknown as Unknown
 import qualified Config
@@ -35,6 +36,7 @@ processCommand (command : args) = do
         "editor" -> void Editor.chooseEditor
         "config" -> void EditConfig.openConfig
         "edit" -> Edit.editTaskFile args
+        "sync" -> Sync.syncCommand args
         _ -> Unknown.handleUnknownCommand
     _ -> Unknown.handleUnknownCommand
   putStrLn "\n"

@@ -5,11 +5,12 @@ module FileManager
     updateFile,
     fileExists,
     normalizePath,
+    directoryExists,
   )
 where
 
 import Data.List (isPrefixOf)
-import System.Directory (doesFileExist, getHomeDirectory)
+import System.Directory (doesDirectoryExist, doesFileExist, getHomeDirectory)
 import System.FilePath ((</>))
 import System.IO
 
@@ -57,3 +58,8 @@ fileExists :: FilePath -> IO Bool
 fileExists path = do
   normalizedPath <- normalizePath path
   doesFileExist normalizedPath
+
+directoryExists :: FilePath -> IO Bool
+directoryExists path = do
+  normalizedPath <- normalizePath path
+  doesDirectoryExist normalizedPath
