@@ -6,7 +6,7 @@ where
 
 import Data.List.Split (splitOn)
 import qualified Data.Text as T
-import qualified Task
+import qualified Task.Task as Task
 
 sanitize :: String -> String
 sanitize = T.unpack . T.strip . T.pack

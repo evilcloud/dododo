@@ -9,7 +9,7 @@ import Data.List (partition)
 import Data.Time.Clock
 import Data.Time.LocalTime (LocalTime, utc, utcToLocalTime)
 import qualified FileManager
-import qualified Task
+import qualified Task.Task as Task
 import qualified TasksIO
 import qualified Timestamp
 

@@ -11,7 +11,7 @@ import Data.Char (toLower)
 import Data.List (find, maximumBy)
 import Data.Ord (comparing)
 import Data.Text (pack, strip, unpack)
-import Task (Task (..))
+import Task.Task as Task (Task (..))
 
 -- Function to check if a task has a status
 taskWithStatus :: Task -> Bool

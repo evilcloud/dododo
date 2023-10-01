@@ -4,7 +4,7 @@ module Commands.New
 where
 
 import qualified Generator
-import qualified Task
+import qualified Task.Task as Task
 import qualified TasksIO
 import Timestamp (createTimestamp)
 
