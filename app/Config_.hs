@@ -25,8 +25,8 @@ commandOptions =
       ("help", ["help", "h", "?"]),
       ("editor", ["editor"]),
       ("edit", ["edit"]),
-      ("sync", ["sync", "dropbox"]),
       ("config", ["config", "editconfig"])
+      ("sync", ["sync", "drobpox"]),
     ]
 
 -- Paths to the files with current tasks and tasks beyond lifetime

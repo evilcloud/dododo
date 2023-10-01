@@ -102,6 +102,15 @@ executable dododo
                     , containers
                     , process
                     , haskeline
+                    , yaml
+                    , bytestring
+                    , aeson
+                    , aeson-pretty
+                    , MissingH
+                    , ConfigFile
+                    , mtl
+                    , data-default
+                    , configurator
 
     -- Directories containing source files.
     hs-source-dirs:   app

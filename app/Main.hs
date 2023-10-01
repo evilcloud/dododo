@@ -1,5 +1,6 @@
 import qualified Commands.CommandList as CommandList
 import qualified Commands.Shell as Shell
+-- import qualified Config.Config as Config
 import System.Environment (getArgs)
 import qualified TaskArchiver
 
@@ -10,6 +11,5 @@ main = do
   putStrLn "\n"
   args <- getArgs
   case args of
-    ("shell" : _) -> do
-      Shell.shellLoop
+    ("shell" : _) -> Shell.shellLoop
     _ -> CommandList.processCommand args
