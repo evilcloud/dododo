@@ -6,6 +6,7 @@ module FileManager
     fileExists,
     normalizePath,
     directoryExists,
+    renormalizePath,
   )
 where
 
@@ -52,6 +53,13 @@ normalizePath path = do
     if "~/" `isPrefixOf` path
       then homeDirectory </> drop 2 path
       else path
+
+renormalizePath :: FilePath -> IO FilePath
+renormalizePath path = do
+  homeDirectory <- getHomeDirectory
+  if homeDirectory `isPrefixOf` path
+    then return $ "~/" ++ drop (length homeDirectory + 1) path
+    else return path
 
 -- Check if file exists
 fileExists :: FilePath -> IO Bool

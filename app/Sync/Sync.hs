@@ -1,11 +1,25 @@
-module Sync.Sync where
+module Sync.Sync
+  ( syncDirs,
+    configFilePath,
+    syncStatus,
+    getSyncDirs,
+    writeToConfig,
+    disableSync,
+    findSyncDirs,
+    handleSyncDirs,
+    checkAndPrintSyncDir,
+  )
+where
 
+import qualified Config.Config as Config
 import Control.Monad (filterM, void)
+import Data.ConfigFile
+import Data.Either.Utils (forceEither)
 import Data.Maybe (catMaybes)
-import FileManager (directoryExists, normalizePath)
+import FileManager (directoryExists, renormalizePath)
 
 syncDirs :: [FilePath]
-syncDirs = ["Dropbox", "Dropbox (Personal)", "Dropbox (Business)"]
+syncDirs = ["~/Dropbox", "~/Dropbox (Personal)", "~/Dropbox (Business)"]
 
 configFilePath :: FilePath
 configFilePath = "~/.config/dododo/config"
@@ -15,7 +29,6 @@ checkAndPrintSyncDir dir = do
   exists <- directoryExists dir
   if exists
     then do
-      --   putStrLn $ "Directory exists: " ++ dir
       return (Just dir)
     else return Nothing
 
@@ -35,14 +48,33 @@ handleSyncDirs dirs = case dirs of
     mapM_ putStrLn dirs
 
 writeToConfig :: FilePath -> IO ()
-writeToConfig dir = do
+writeToConfig newPath = do
   putStrLn "Writing to config"
+  newPath <- renormalizePath newPath
+  updateSyncPath newPath
 
 disableSync :: IO ()
 disableSync = do
+  updateSyncPath ""
   putStrLn "Disabling sync"
 
 findSyncDirs :: [FilePath] -> IO ()
 findSyncDirs dirs = do
   existingDirs <- filterM directoryExists dirs
   handleSyncDirs existingDirs
+
+syncStatus :: IO ()
+syncStatus = do
+  config <- Config.getConfig
+  let syncValueEither = get config "PATHS" "sync"
+  case syncValueEither of
+    Left _ -> putStrLn "off"
+    Right syncValue ->
+      if null syncValue
+        then putStrLn "off"
+        else putStrLn syncValue
+
+updateSyncPath :: FilePath -> IO ()
+updateSyncPath newPath = do
+  newConfig <- Config.updateConfig "PATHS" "sync" newPath
+  return ()

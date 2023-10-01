@@ -2,6 +2,7 @@ module Config.Config
   ( Config,
     getConfig,
     updateConfig,
+    configFilePath,
   )
 where
 
@@ -21,9 +22,12 @@ getConfig = do
   if exists
     then do
       content <- readFromFile configFilePath
-      let result = readstring emptyCP content
-      return $ forceEither result
-    else do
+      case readstring emptyCP content of
+        Right config -> return config
+        Left _ -> handleDefaultConfig
+    else handleDefaultConfig
+  where
+    handleDefaultConfig = do
       writeConfig defaultConfig
       return defaultConfig
 
