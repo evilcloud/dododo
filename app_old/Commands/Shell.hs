@@ -1,10 +1,23 @@
 module Commands.Shell where
 
-import Commands.Commands as Commands
-import Control.Monad (void)
+import Commands.CommandList (processCommand)
 import Control.Monad.IO.Class (liftIO)
+import Data.List (isPrefixOf)
 import System.Console.Haskeline
+import System.Console.Haskeline.Completion
 import System.Process (system)
+import qualified TasksIO
+
+mySettings :: [String] -> Settings IO
+mySettings taskIds =
+  Settings
+    { complete = myCompleter taskIds,
+      historyFile = Nothing,
+      autoAddHistory = True
+    }
+
+myCompleter :: [String] -> CompletionFunc IO
+myCompleter taskIds = completeWord Nothing " \t" $ \str -> return (map simpleCompletion $ filter (str `isPrefixOf`) taskIds)
 
 shellLoop :: IO ()
 shellLoop = do
@@ -15,7 +28,8 @@ shellLoop = do
   putStrLn "'clear' clear shell screen"
   putStrLn "<TAB> to autocomplete taskID"
   putStrLn "\ESC[m"
-  runInputT defaultSettings loop
+  taskIds <- TasksIO.getAllTaskIds
+  runInputT (mySettings taskIds) loop
   where
     loop = do
       minput <- getInputLine "\ESC[1;34mDoDoDo>>> \ESC[m"
@@ -24,7 +38,8 @@ shellLoop = do
         Just "quit" -> return ()
         Just "clear" -> do
           _ <- liftIO $ system "clear" -- On Unix-like systems
+          -- _ <- liftIO $ system "cls"  -- On Windows
           loop
         Just input -> do
-          liftIO $ Commands.processCommand (words input)
+          liftIO $ processCommand (words input)
           loop

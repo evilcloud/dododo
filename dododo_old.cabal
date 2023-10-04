@@ -62,18 +62,54 @@ executable dododo
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules:    Generator
+                    , Commands.CommandList
+                    , Commands.Delete
+                    , Commands.Done
+                    , Commands.Edit
+                    , Commands.EditConfig
+                    , Commands.Editor
+                    , Commands.Help
+                    , Commands.ListTasks
+                    , Commands.New
+                    , Commands.Shell
+                    , Commands.Undone
+                    , Commands.Unknown
+                    , Config
+                    , FileManager
+                    , Filter
+                    , FindTask
+                    , Status
+                    , TaskArchiver
+                    , TaskParser
+                    , TasksIO
+                    , TimeMachine
+                    , Timestamp
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.17.0.0
-                    , time
+                    , text
                     , random
-                    , haskeline
+                    , time
+                    , directory
+                    , filepath
+                    , split
+                    , regex-tdfa
+                    , containers
                     , process
-                    , HUnit
+                    , haskeline
+                    , yaml
+                    , bytestring
+                    , aeson
+                    , aeson-pretty
+                    , MissingH
+                    , ConfigFile
+                    , mtl
+                    , data-default
+                    , configurator
 
     -- Directories containing source files.
     hs-source-dirs:   app

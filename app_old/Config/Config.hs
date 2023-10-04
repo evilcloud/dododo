@@ -10,7 +10,7 @@ import Config.Default (defaultConfig)
 import Data.ConfigFile
 import Data.Either
 import Data.Either.Utils (forceEither)
-import FileManager.FileManager as FM
+import FileManager (fileExists, overwriteFile, readFromFile)
 
 type Config = ConfigParser
 
@@ -18,10 +18,10 @@ configFilePath = "~/.config/dododo/config.ini"
 
 getConfig :: IO Config
 getConfig = do
-  exists <- FM.fileExists configFilePath
+  exists <- fileExists configFilePath
   if exists
     then do
-      content <- FM.readFile configFilePath
+      content <- readFromFile configFilePath
       case readstring emptyCP content of
         Right config -> return config
         Left _ -> handleDefaultConfig
@@ -34,7 +34,7 @@ getConfig = do
 writeConfig :: Config -> IO ()
 writeConfig config = do
   let content = to_string config
-  FM.writeFile configFilePath content
+  overwriteFile configFilePath content
 
 updateConfig :: SectionSpec -> OptionSpec -> String -> IO Config
 updateConfig section option newValue = do

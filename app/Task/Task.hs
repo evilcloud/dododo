@@ -1,44 +1,64 @@
 module Task.Task
-  ( Task (..),
-    updateTask,
-    formatTask,
+  ( Task(..)
+  , createMicroTask
+  , createTomorrowTask
+  , updateMicroTask
+  , updateTomorrowTask
   )
 where
 
-import qualified Config
-import Timestamp (createTimestamp, timeDiffCasual)
+import Data.Time
+import Data.Time.Format (formatTime, defaultTimeLocale)
+import Task.TaskId as TaskId
 
-data Task = Task
-  { taskId :: String,
-    taskMessage :: String,
-    creationTimestamp :: String,
-    status :: String,
-    statusDuration :: String
-  }
-  deriving (Show, Eq, Ord)
+data Task = MicroTask
+  { creation :: LocalTime
+  , taskId :: String
+  , message :: String
+  , status :: Maybe String
+  , duration :: Maybe NominalDiffTime
+  } 
+  | TomorrowTask
+  { todoChecked :: Bool
+  , taskId :: String
+  , message :: String
+  } deriving (Show, Eq)
+  
+createMicroTask :: String -> IO Task
+createMicroTask msg = do
+  now <- getZonedTime
+  id <- TaskId.generateId
+  let localTime = zonedTimeToLocalTime now
+  return $ MicroTask localTime id msg Nothing Nothing
 
--- Function to update a task's status
-updateTask :: Task -> String -> IO Task
-updateTask task newStatus = do
-  timestamp <- Timestamp.createTimestamp
-  let duration = Timestamp.timeDiffCasual (creationTimestamp task) timestamp
-  return task {status = newStatus, statusDuration = duration}
+createTomorrowTask :: String -> IO Task
+createTomorrowTask msg = do
+  id <- TaskId.generateId
+  return $ TomorrowTask False id msg
 
--- Constants for the format
-separator, prefix :: String
-separator = Config.taskInternalSeparator
-prefix = " "
 
--- Function to format a task
-formatTask :: Task -> String
-formatTask task =
-  prefix
-    ++ creationTimestamp task
-    ++ separator
-    ++ taskId task
-    ++ separator
-    ++ taskMessage task
-    ++ ( if status task /= "open"
-           then separator ++ status task ++ " " ++ statusDuration task
-           else ""
-       )
+updateMicroTask :: Task -> String -> IO Task
+updateMicroTask task status = do
+  now <- getCurrentTime
+  let nowLocal = utcToLocalTime utc now
+  case task of
+    MicroTask {creation = creation, taskId = taskId, message = message, status = _, duration = duration} -> 
+      let newDuration = diffLocalTime nowLocal creation
+      in return $ task {status = Just status, duration = Just newDuration}
+    _ -> return task
+
+
+
+updateTomorrowTask :: Task -> IO Task
+updateTomorrowTask task = 
+  case task of
+    TomorrowTask {todoChecked = todoChecked, taskId = taskId, message = message} ->
+      return $ task {todoChecked = not todoChecked}
+    _ -> return task
+
+
+
+failedSubmission :: Task -> IO Task
+failedSubmission task = do
+  putStrLn "Failed to update the task"
+  return task
