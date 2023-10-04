@@ -1,8 +1,7 @@
 module FileManager.FileManager
-  ( readFile,
+  ( readFromFile,
     appendToFile,
-    writeFile,
-    updateFile,
+    writeToFile,
     fileExists,
     directoryExists,
     pathTildeToHome,
@@ -16,8 +15,8 @@ import System.FilePath ((</>))
 import System.IO
 
 -- Read from file
-readFile :: FilePath -> IO String
-readFile path = do
+readFromFile :: FilePath -> IO String
+readFromFile path = do
   normalizedPath <- pathTildeToHome path
   System.IO.readFile normalizedPath
 
@@ -28,8 +27,8 @@ appendToFile path content = do
   System.IO.appendFile normalizedPath content
 
 -- Overwrite file
-writeFile :: FilePath -> String -> IO ()
-writeFile path content = do
+writeToFile :: FilePath -> String -> IO ()
+writeToFile path content = do
   normalizedPath <- pathTildeToHome path
   System.IO.writeFile normalizedPath content
 

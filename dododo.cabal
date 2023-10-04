@@ -73,7 +73,10 @@ executable dododo
                     , random
                     , haskeline
                     , process
-                    , HUnit
+                    , directory
+                    , filepath
+                    , ConfigFile
+                    , MissingH
 
     -- Directories containing source files.
     hs-source-dirs:   app

@@ -21,7 +21,7 @@ getConfig = do
   exists <- FM.fileExists configFilePath
   if exists
     then do
-      content <- FM.readFile configFilePath
+      content <- FM.readFromFile configFilePath
       case readstring emptyCP content of
         Right config -> return config
         Left _ -> handleDefaultConfig
@@ -34,7 +34,7 @@ getConfig = do
 writeConfig :: Config -> IO ()
 writeConfig config = do
   let content = to_string config
-  FM.writeFile configFilePath content
+  FM.writeToFile configFilePath content
 
 updateConfig :: SectionSpec -> OptionSpec -> String -> IO Config
 updateConfig section option newValue = do
