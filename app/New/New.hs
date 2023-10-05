@@ -10,13 +10,13 @@ createNewTask :: [String] -> IO ()
 createNewTask words = do
   let message = unwords words
   task <- Task.createMicroTask message
-  taskStr <- Format.taskForPrint task
+  taskStr <- Format.taskForFile task
   config <- Config.getConfig
   let taskFilePath = get config "PATHS" "current"
   case taskFilePath of
     Left _ -> putStrLn "Error: Could not get task file path from configuration."
     Right path -> do
-      FM.appendToFile path taskStr
+      FM.appendToFile path (taskStr ++ "\n")
       printTask task
 
 printTask :: Task.Task -> IO ()

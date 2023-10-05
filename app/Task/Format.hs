@@ -50,13 +50,14 @@ formatTomorrowTask task =
       in prefix ++ "   " ++ id ++ separator ++ message
     _ -> ""
 
-taskForFile :: Task.Task -> String
+taskForFile :: Task.Task -> IO String
 taskForFile task = 
   case task of
-    microTask@Task.MicroTask {} -> 
+    microTask@Task.MicroTask {} -> do
       let creation = timestampToString $ Task.creation microTask
-      in formatMicroTask task creation
-    tomorrowTask@Task.TomorrowTask {} -> formatTomorrowTask task
+      return $ formatMicroTask task creation
+    tomorrowTask@Task.TomorrowTask {} -> return $ formatTomorrowTask task
+
 
 taskForPrint :: Task.Task -> IO String
 taskForPrint task = do

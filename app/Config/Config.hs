@@ -3,6 +3,7 @@ module Config.Config
     getConfig,
     updateConfig,
     configFilePath,
+    get,
   )
 where
 
