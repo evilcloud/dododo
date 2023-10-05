@@ -3,6 +3,7 @@ module Config.Config
     getConfig,
     updateConfig,
     configFilePath,
+    resetToDefault,
     get,
   )
 where
@@ -46,3 +47,6 @@ updateConfig section option newValue = do
     Right newConfig -> do
       writeConfig newConfig
       return newConfig
+
+resetToDefault :: IO ()
+resetToDefault = writeConfig defaultConfig

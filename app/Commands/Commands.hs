@@ -1,5 +1,6 @@
 module Commands.Commands where
 
+import qualified Commands.Config as Config
 import qualified Commands.Edit as Edit
 import qualified Commands.Editor as Editor
 import qualified Commands.New as New
@@ -12,6 +13,7 @@ processCommand (command : args) = void $ case command of
   "new" -> New.newTask args
   "edit" -> Edit.editTaskFile args
   "editor" -> void Editor.chooseEditor
+  "config" -> Config.configCommand args
   _ -> unknown
 
 unknown :: IO ()
