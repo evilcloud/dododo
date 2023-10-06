@@ -62,7 +62,7 @@ executable dododo
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules:    Generator
+    other-modules:    Task.Generator
                     , Commands.CommandList
                     , Commands.Delete
                     , Commands.Done

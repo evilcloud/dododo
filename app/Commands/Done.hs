@@ -1,28 +1,10 @@
-module Commands.Done
-  ( doneCommand,
-  )
-where
+-- Commands/Done.hs
+module Commands.Done (commandDone) where
 
-import qualified Filter
-import qualified Status
-import Task.Task as Task (Task (..))
-import qualified TasksIO
+import qualified Task.Done as Done
 
-doneCommand :: [String] -> IO ()
-doneCommand [] = closeLatestOpenTask "done"
-doneCommand (arg1 : args) = do
-  tasks <- TasksIO.getAllTasksFromCurrent
-  let taskIds = map Task.taskId tasks
-  if arg1 `elem` taskIds
-    then case args of
-      (arg2 : _) -> Status.changeStatus arg1 arg2
-      [] -> Status.changeStatus arg1 "done"
-    else closeLatestOpenTask arg1
-
-closeLatestOpenTask :: String -> IO ()
-closeLatestOpenTask newStatus = do
-  tasks <- TasksIO.getAllTasksFromCurrent
-  let taskMaybe = Filter.findLatestOpenTask tasks
-  case taskMaybe of
-    Just task -> Status.changeStatus (Task.taskId task) newStatus
-    Nothing -> putStrLn $ "No open tasks found"
+commandDone :: [String] -> IO ()
+commandDone args = case args of
+  [] -> Done.closeLatestOpenTask "done"
+  [taskId] -> Done.changeStatus taskId "done"
+  (taskId : newStatus : _) -> Done.changeStatus taskId newStatus

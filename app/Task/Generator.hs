@@ -1,4 +1,4 @@
-module Generator (taskID) where
+module Task.Generator (taskID) where
 
 import System.Random (randomRIO)
 

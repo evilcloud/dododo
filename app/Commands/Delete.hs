@@ -1,22 +1,8 @@
-module Commands.Delete
-  ( deleteTasks,
-  )
-where
+-- Commands/Delete.hs
+module Commands.Delete (commandDelete) where
 
-import Data.List (elem)
-import Filter (findByTaskId)
-import qualified Task.Task as Task (Task (..), formatTask)
-import TasksIO (deleteTaskInCurrent, findTaskById, getAllTasksFromCurrent) -- Updated import
+import qualified Task.Delete as Delete
 
-deleteTasks :: [String] -> IO ()
-deleteTasks taskIds = do
-  tasks <- getAllTasksFromCurrent
-  mapM_
-    ( \taskId ->
-        case findTaskById taskId tasks of
-          Nothing -> putStrLn $ "Task ID " ++ taskId ++ " is not found\nNothing deleted"
-          Just task -> do
-            deleteTaskInCurrent taskId
-            putStrLn $ "Deleted:\n" ++ (Task.formatTask task)
-    )
-    taskIds
+commandDelete :: [String] -> IO ()
+commandDelete [] = putStrLn "No task IDs provided - nothing deleted"
+commandDelete taskIds = Delete.deleteTasks taskIds

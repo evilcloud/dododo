@@ -34,6 +34,6 @@ archiveOldTasks = do
   mapM_ TasksIO.addTaskToPast oldTasks
   mapM_ TasksIO.deleteTaskInCurrent (map Task.taskId oldTasks)
   unless (null oldTasks) $ do
-    putStrLn $ "Tasks removed from the list: " ++ (show $ length oldTasks)
+    putStrLn $ "Tasks removed from the list: " ++ show (length oldTasks)
     mapM_ (putStrLn . Task.formatTask) oldTasks
     putStrLn $ "\n\n"

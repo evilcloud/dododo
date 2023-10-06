@@ -24,18 +24,18 @@ processCommand (command : args) = do
   putStrLn "\n"
   let options = fromMaybe [] (M.lookup command Config.commandOptions)
   let matchOption x = x `elem` options
-  case command of
+  void $ case command of
     x | matchOption x ->
       case command of
-        "new" -> void $ New.new (unwords args)
+        "new" -> New.new (unwords args)
         "task" -> FindTask.findAndPrintTaskById (head args)
-        "done" -> Done.doneCommand args
-        "undone" -> Undone.undoneCommand args
-        "delete" -> Delete.deleteTasks args
+        "done" -> Done.commandDone args
+        "undone" -> Undone.commandUndone args
+        "delete" -> Delete.commandDelete args
         "help" -> Help.printHelp args
-        "editor" -> void Editor.chooseEditor
-        "config" -> void EditConfig.openConfig
-        "edit" -> Edit.editTaskFile args
+        -- "editor" -> Editor.chooseEditor
+        "config" -> EditConfig.openConfig
+        "edit" -> Edit.commandEdit args
         "sync" -> Sync.syncCommand args
         _ -> Unknown.handleUnknownCommand
     _ -> Unknown.handleUnknownCommand
