@@ -2,7 +2,7 @@ module Task.New (new) where
 
 import qualified Task.Generator as Generator
 import qualified Task.Task as Task
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 import Timestamp (createTimestamp)
 
 new :: String -> IO ()

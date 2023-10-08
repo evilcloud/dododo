@@ -1,4 +1,4 @@
-module TasksIO
+module TasksArray.TasksIO
   ( addTaskToCurrent,
     getAllTasksFromCurrent,
     findTaskById,

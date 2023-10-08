@@ -6,7 +6,7 @@ where
 import qualified Filter
 import qualified Status
 import Task.Task as Task (Task (..))
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 
 openLatestClosedTask :: IO ()
 openLatestClosedTask = do

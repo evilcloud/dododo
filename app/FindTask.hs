@@ -6,7 +6,7 @@ where
 
 import qualified Filter
 import qualified Task.Task as Task (Task (..), formatTask, taskId)
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 
 -- Function to find a task by its taskId
 findByTaskId :: String -> IO (Maybe Task.Task)

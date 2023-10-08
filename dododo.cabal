@@ -70,7 +70,6 @@ executable dododo
                     , Commands.EditConfig
                     , Commands.Editor
                     , Commands.Help
-                    , Commands.ListTasks
                     , Commands.New
                     , Commands.Shell
                     , Commands.Undone
@@ -81,7 +80,6 @@ executable dododo
                     , Status
                     , TaskArchiver
                     , TaskParser
-                    , TasksIO
                     , TimeMachine
                     , Timestamp
 

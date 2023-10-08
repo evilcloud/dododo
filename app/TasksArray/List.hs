@@ -1,4 +1,4 @@
-module Commands.ListTasks
+module TasksArray.List
   ( allStdOut,
     allStdOutWithStatus,
     allStdOutWithoutStatus,
@@ -8,7 +8,7 @@ where
 import Data.List (intercalate)
 import qualified Filter
 import qualified Task.Task as Task
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 import Text.Printf (printf)
 import qualified TimeMachine
 

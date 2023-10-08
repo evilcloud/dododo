@@ -3,7 +3,7 @@ module Task.Done (closeLatestOpenTask, changeStatus) where
 import qualified Filter
 import qualified Status
 import Task.Task as Task (Task (..))
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 
 closeLatestOpenTask :: String -> IO ()
 closeLatestOpenTask newStatus = do

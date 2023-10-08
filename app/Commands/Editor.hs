@@ -5,6 +5,7 @@ module Commands.Editor
   )
 where
 
+import Config.Config as Config
 import Control.Monad (filterM, forM_)
 import Data.List (delete)
 import Data.Maybe (isJust)
@@ -26,6 +27,24 @@ getDefaultEditor :: IO (Maybe String)
 getDefaultEditor = lookupEnv "EDITOR"
 
 -- Function to list available editors and ask the user to choose one
+-- chooseEditor :: IO String
+-- chooseEditor = do
+--   availableEditors <- getAvailableEditors
+--   defaultEditor <- getDefaultEditor
+--   let availableEditors' = case defaultEditor of
+--         Just de -> if de `elem` availableEditors then de : delete de availableEditors else availableEditors
+--         Nothing -> availableEditors
+--   case availableEditors' of
+--     [] -> error "No editors available."
+--     _ -> do
+--       putStrLn "Please choose an editor (default one is marked with *):"
+--       forM_ (zip [1 ..] availableEditors') $ \(i, editor) ->
+--         putStrLn $ show i ++ ". " ++ editor ++ if Just editor == defaultEditor then " *" else ""
+--       choice <- getLine
+--       let chosenEditor = availableEditors' !! (read choice - 1)
+--       return chosenEditor
+
+-- Function to list available editors and ask the user to choose one
 chooseEditor :: IO String
 chooseEditor = do
   availableEditors <- getAvailableEditors
@@ -41,4 +60,5 @@ chooseEditor = do
         putStrLn $ show i ++ ". " ++ editor ++ if Just editor == defaultEditor then " *" else ""
       choice <- getLine
       let chosenEditor = availableEditors' !! (read choice - 1)
+      Config.updateConfig "SETTINGS" "editor" chosenEditor
       return chosenEditor

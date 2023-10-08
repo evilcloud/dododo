@@ -6,7 +6,7 @@ import Data.List (isPrefixOf)
 import System.Console.Haskeline
 import System.Console.Haskeline.Completion
 import System.Process (system)
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 
 mySettings :: [String] -> Settings IO
 mySettings taskIds =

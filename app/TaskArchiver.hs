@@ -10,7 +10,7 @@ import Data.Time.Clock
 import Data.Time.LocalTime (LocalTime, utc, utcToLocalTime)
 import qualified FileManager
 import qualified Task.Task as Task
-import qualified TasksIO
+import qualified TasksArray.TasksIO as TasksIO
 import qualified Timestamp
 
 -- Function to check if a task is older than Config.lifetime days
