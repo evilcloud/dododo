@@ -5,7 +5,7 @@ module Task.Task
   )
 where
 
-import qualified Config
+import qualified Config.Config as Config
 import Timestamp (createTimestamp, timeDiffCasual)
 
 data Task = Task

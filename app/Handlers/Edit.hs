@@ -1,7 +1,7 @@
 module Handlers.Edit (editTask) where
 
 import qualified Commands.Editor as Editor
-import Config
+import qualified Config.Config as Config
 import System.Process (callCommand)
 
 editTask :: Maybe String -> IO ()

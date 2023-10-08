@@ -17,7 +17,10 @@ import Config.Default (defaultConfig)
 import Data.ConfigFile
 import Data.Either
 import Data.Either.Utils (forceEither)
+import Data.List.Split (splitOn)
+import qualified Data.Map as M
 import FileManager (fileExists, overwriteFile, readFromFile)
+import System.IO.Unsafe (unsafePerformIO)
 
 type Config = ConfigParser
 
@@ -54,23 +57,25 @@ updateConfig section option newValue = do
       return newConfig
 
 -- Define the exported values
-current :: IO String
-current = do
+current :: String
+current = unsafePerformIO $ do
   config <- getConfig
   return $ forceEither $ get config "PATHS" "current"
 
-past :: IO String
-past = do
+past :: String
+past = unsafePerformIO $ do
   config <- getConfig
   return $ forceEither $ get config "PATHS" "past"
 
-commandOptions :: IO [(String, [String])]
-commandOptions = do
+commandOptions :: M.Map String [String]
+commandOptions = unsafePerformIO $ do
   config <- getConfig
-  return $ forceEither $ items config "OPTIONS"
+  let options = forceEither $ items config "OPTIONS"
+  let parsedOptions = map (\(option, value) -> (option, splitOn "," value)) options
+  return $ M.fromList parsedOptions
 
-lifetime :: IO String
-lifetime = do
+lifetime :: String
+lifetime = unsafePerformIO $ do
   config <- getConfig
   return $ forceEither $ get config "SETTINGS" "lifetime"
 

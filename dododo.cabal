@@ -75,7 +75,6 @@ executable dododo
                     , Commands.Shell
                     , Commands.Undone
                     , Commands.Unknown
-                    , Config
                     , FileManager
                     , Filter
                     , FindTask

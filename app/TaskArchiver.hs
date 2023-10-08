@@ -3,7 +3,7 @@ module TaskArchiver
   )
 where
 
-import qualified Config
+import qualified Config.Config as Config
 import Control.Monad (unless)
 import Data.List (partition)
 import Data.Time.Clock

@@ -11,7 +11,7 @@ import qualified Commands.New as New
 import qualified Commands.Sync as Sync
 import qualified Commands.Undone as Undone
 import qualified Commands.Unknown as Unknown
-import qualified Config
+import qualified Config.Config as Config
 import Control.Monad (void)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)

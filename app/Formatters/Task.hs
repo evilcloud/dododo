@@ -1,6 +1,6 @@
 module Format.Task (formatTask) where
 
-import qualified Config
+import qualified Config.Config as Config
 import Task.Task (Task (..))
 
 -- Constants for the format
