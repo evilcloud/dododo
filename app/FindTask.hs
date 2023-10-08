@@ -4,7 +4,7 @@ module FindTask
   )
 where
 
-import qualified Filter
+import qualified Handlers.Filter as Filter
 import qualified Task.Task as Task (Task (..), formatTask, taskId)
 import qualified TasksArray.TasksIO as TasksIO
 

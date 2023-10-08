@@ -2,7 +2,7 @@
 module Task.Delete (deleteTasks) where
 
 import Data.List (elem)
-import Filter (findByTaskId)
+import Handlers.Filter as Filter (findByTaskId)
 import qualified Task.Task as Task (Task (..), formatTask)
 import qualified TasksArray.TasksIO as TasksIO
 

@@ -6,6 +6,7 @@ module Config.Config
     current,
     past,
     lifetime,
+    editor,
   )
 where
 
@@ -32,3 +33,9 @@ lifetime :: String
 lifetime = unsafePerformIO $ do
   config <- getConfig
   return $ forceEither $ get config "SETTINGS" "lifetime"
+
+-- Define the exported values
+editor :: IO String
+editor = do
+  config <- getConfig
+  return $ forceEither $ get config "SETTINGS" "editor"

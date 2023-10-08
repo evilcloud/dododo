@@ -1,9 +1,9 @@
-module Status
+module Handlers.Status
   ( changeStatus,
   )
 where
 
-import qualified Filter
+import qualified Handlers.Filter as Filter
 import qualified Task.Task as Task (Task (..), formatTask)
 import qualified TasksArray.TasksIO as TasksIO
 import qualified TimeMachine

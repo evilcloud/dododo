@@ -75,9 +75,7 @@ executable dododo
                     , Commands.Undone
                     , Commands.Unknown
                     , FileManager
-                    , Filter
                     , FindTask
-                    , Status
                     , TaskArchiver
                     , TaskParser
                     , TimeMachine

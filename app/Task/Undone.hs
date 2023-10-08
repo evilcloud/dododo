@@ -3,8 +3,8 @@ module Task.Undone
   )
 where
 
-import qualified Filter
-import qualified Status
+import qualified Handlers.Filter as Filter
+import qualified Handlers.Status as Status
 import Task.Task as Task (Task (..))
 import qualified TasksArray.TasksIO as TasksIO
 
