@@ -9,7 +9,7 @@ module TasksIO
   )
 where
 
-import qualified Config
+import qualified Config.Config as Config
 import Data.List (find, sortOn)
 import Data.Maybe (mapMaybe)
 import qualified FileManager
@@ -24,12 +24,10 @@ getAllTasksFromCurrent = do
   let maybeTasks = map TaskParser.parseTask contentLines
   return $ mapMaybe id maybeTasks
 
--- Function to add a task to the current file
 addTaskToCurrent :: Task.Task -> IO ()
 addTaskToCurrent task = do
-  tasks <- getAllTasksFromCurrent
-  let updatedTasks = task : tasks
-  writeTasksToFile Config.current updatedTasks
+  let formattedTask = Task.formatTask task ++ "\n"
+  FileManager.appendToFile Config.current formattedTask
 
 -- Function to update a task in the current file
 updateTaskInCurrent :: Task.Task -> IO ()

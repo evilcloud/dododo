@@ -1,30 +1,7 @@
-module Commands.New
-  ( new,
-  )
-where
+module Commands.New (commandNew) where
 
-import qualified Task.Generator as Generator
-import qualified Task.Task as Task
-import qualified TasksIO
-import Timestamp (createTimestamp)
+import qualified Task.New as New
 
--- Function to create a new task
-createTask :: String -> IO Task.Task
-createTask message = do
-  taskId <- Generator.taskID
-  timestamp <- Timestamp.createTimestamp
-  return
-    Task.Task
-      { Task.taskId = taskId,
-        Task.taskMessage = message,
-        Task.creationTimestamp = timestamp,
-        Task.status = "open",
-        Task.statusDuration = "none"
-      }
-
--- Function for the 'new' command
-new :: String -> IO ()
-new message = do
-  task <- createTask message
-  TasksIO.addTaskToCurrent task
-  putStrLn $ Task.formatTask task ++ "\n"
+commandNew :: [String] -> IO ()
+commandNew [] = putStrLn "No task message provided - nothing created"
+commandNew (message : _) = New.new message

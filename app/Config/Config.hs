@@ -1,8 +1,15 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Config.Config
   ( Config,
     getConfig,
     updateConfig,
     configFilePath,
+    current,
+    past,
+    commandOptions,
+    lifetime,
+    taskInternalSeparator,
   )
 where
 
@@ -45,3 +52,27 @@ updateConfig section option newValue = do
     Right newConfig -> do
       writeConfig newConfig
       return newConfig
+
+-- Define the exported values
+current :: IO String
+current = do
+  config <- getConfig
+  return $ forceEither $ get config "PATHS" "current"
+
+past :: IO String
+past = do
+  config <- getConfig
+  return $ forceEither $ get config "PATHS" "past"
+
+commandOptions :: IO [(String, [String])]
+commandOptions = do
+  config <- getConfig
+  return $ forceEither $ items config "OPTIONS"
+
+lifetime :: IO String
+lifetime = do
+  config <- getConfig
+  return $ forceEither $ get config "SETTINGS" "lifetime"
+
+taskInternalSeparator :: String
+taskInternalSeparator = "  |  "

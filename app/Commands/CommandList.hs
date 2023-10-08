@@ -27,7 +27,7 @@ processCommand (command : args) = do
   void $ case command of
     x | matchOption x ->
       case command of
-        "new" -> New.new (unwords args)
+        "new" -> New.commandNew args
         "task" -> FindTask.findAndPrintTaskById (head args)
         "done" -> Done.commandDone args
         "undone" -> Undone.commandUndone args
