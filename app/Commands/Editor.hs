@@ -6,6 +6,7 @@ module Commands.Editor
 where
 
 import Config.Config as Config
+import qualified Config.IO as ConfigIO
 import Control.Monad (filterM, forM_)
 import Data.List (delete)
 import Data.Maybe (isJust)
@@ -60,5 +61,5 @@ chooseEditor = do
         putStrLn $ show i ++ ". " ++ editor ++ if Just editor == defaultEditor then " *" else ""
       choice <- getLine
       let chosenEditor = availableEditors' !! (read choice - 1)
-      Config.updateConfig "SETTINGS" "editor" chosenEditor
+      ConfigIO.updateConfig "SETTINGS" "editor" chosenEditor
       return chosenEditor

@@ -18,29 +18,6 @@ import qualified FindTask
 import System.IO (hFlush, stdout)
 import qualified TasksArray.List as List
 
--- processCommand :: [String] -> IO ()
--- processCommand [] = List.allStdOut
--- processCommand (command : args) = do
---   putStrLn "\n"
---   let options = fromMaybe [] (M.lookup command Config.commandOptions)
---   let matchOption x = x `elem` options
---   void $ case command of
---     x | matchOption x ->
---       case command of
---         "new" -> New.commandNew args
---         "task" -> FindTask.findAndPrintTaskById (head args)
---         "done" -> Done.commandDone args
---         "undone" -> Undone.commandUndone args
---         "delete" -> Delete.commandDelete args
---         "help" -> Help.printHelp args
---         "editor" -> void Editor.chooseEditor
---         "config" -> EditConfig.openConfig
---         "edit" -> Edit.commandEdit args
---         "sync" -> Sync.syncCommand args
---         _ -> Unknown.handleUnknownCommand
---     _ -> Unknown.handleUnknownCommand
---   putStrLn "\n"
-
 processCommand :: [String] -> IO ()
 processCommand [] = List.allStdOut
 processCommand (command : args) = do
