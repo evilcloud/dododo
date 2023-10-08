@@ -9,6 +9,7 @@ import Data.Time.Format (formatTime, defaultTimeLocale)
 import Data.Time.LocalTime (LocalTime, localTimeToUTC, utc)
 import Data.Maybe (fromMaybe)
 import qualified Task.Task as Task
+import qualified Task.Model as Model
 
 separator :: String
 separator = "  |  "

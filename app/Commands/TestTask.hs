@@ -1,11 +1,12 @@
 module Commands.TestTask where
 
-import qualified Task.Task as Task
+import qualified Task.Create as Create
+import qualified Task.Update as Update
 
 test :: IO ()
 test = do
-  task <- Task.createMicroTask "This is a task"
+  task <- Create.createMicroTask "This is a task"
   print task
 
-  updatedTask <- Task.updateMicroTask task "completed"
+  updatedTask <- Update.updateMicroTask task "completed"
   print updatedTask
