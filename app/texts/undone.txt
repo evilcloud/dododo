@@ -1,0 +1,5 @@
+undone [task id]
+
+Removes the status from the task. If no task id is provided, the most recent task with the status is unmarked.
+
+Also see: done and status

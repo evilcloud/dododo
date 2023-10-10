@@ -1,0 +1,5 @@
+editor
+
+Shows available compatible editors, and sets the chosen one as preferred.
+
+Also see: edit

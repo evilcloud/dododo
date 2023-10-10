@@ -1,0 +1,7 @@
+shell
+
+Enables a simple shell that allows to work with the tasks without having to enter dododo every time. Shell also offers autocompletion of task id (enter couple of characters and press Tab).
+
+Enter with no command will list the tasks.
+
+To quit the shell type quit.

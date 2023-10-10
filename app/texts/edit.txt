@@ -1,0 +1,5 @@
+edit [editor]
+
+Opens the current in preferred editor. If no editor is set as preferred, a choice of available compatible editors will be offered. The chosen editor becomes preferred editor.
+
+Also see: editor

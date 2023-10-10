@@ -8,6 +8,7 @@ import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
 import qualified Commands.New as New
 import qualified Commands.Sync as Sync
+-- import qualified Commands.Tomorrow as Tomorrow
 import qualified Commands.Undone as Undone
 import qualified Commands.Unknown as Unknown
 import qualified Config.Config as Config
@@ -33,5 +34,6 @@ processCommand (command : args) = do
     "config" -> EditConfig.openConfig
     "edit" -> Edit.commandEdit args
     "sync" -> Sync.syncCommand args
+    -- "tomorrow" -> Tomorrow.new args
     _ -> Unknown.handleUnknownCommand
   putStrLn "\n"

@@ -1,0 +1,3 @@
+new <message>
+
+Creates the new task. Be careful not to include special symbols, that shell won't treat pure text - their use will cause unexpected consequences. The special symbols are: | < > " ' @ \ 

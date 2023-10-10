@@ -1,0 +1,11 @@
+The principle of the program lie with the maximum simplification:
+
+stateless: every action is completed in its entirety at launch. The program acts exactly the same every session in the most predictable fashion and the only changes are those, saved in config.ini file
+
+non-modal: every command is is available from the launch. There is no coommand hierarchy.
+
+UI-less: no special elements are used in the program. All items are standard stock terminal elements. Visual changes can be achieved by changing the terminal settings.
+
+Minimal serendipity: while being being descrete by design, occasional cases of serendipity, such as rather unlikley case of identical task ids for different tasks, may happen. Technically the problem is easily solved, but it was not addressed on purpose, in oder to leave a bit of liveliness in the otherwise almost non-present software. Deal with this issue as you wilt.
+
+

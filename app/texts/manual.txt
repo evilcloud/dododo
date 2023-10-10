@@ -1,0 +1,114 @@
+The principle of the program lie with the maximum simplification:
+
+stateless: every action is completed in its entirety at launch. The program acts exactly the same every session in the most predictable fashion and the only changes are those, saved in config.ini file
+
+non-modal: every command is is available from the launch. There is no coommand hierarchy.
+
+UI-less: no special elements are used in the program. All items are standard stock terminal elements. Visual changes can be achieved by changing the terminal settings.
+
+Minimal serendipity: while being being descrete by design, occasional cases of serendipity, such as rather unlikley case of identical task ids for different tasks, may happen. Technically the problem is easily solved, but it was not addressed on purpose, in oder to leave a bit of liveliness in the otherwise almost non-present software. Deal with this issue as you wilt.
+
+
+---
+
+Typically a first session is a new task creation with "new"
+
+dododo new Take over the world
+dododo new Learn to focus
+dododo new Look, a squirel
+
+
+To check your list, just run the program with no arguments
+
+dododo
+
+ Today 08:36      |  qzkerv  |  Take over the world
+ Today 08:37      |  gzmkin  |  Learn to focus
+ Today 08:39      |  njcgph  |  Look, a squirrel
+
+
+Once the inner task is done, mark it as such with "done"
+
+done
+
+Status of task njcgph changed to done
+Updated Task:
+ 2023-10-09 08:39  |  njcgph  |  Look, a squirrel  |  done @1 min
+
+
+done 
+
+Status of task gzmkin changed to done
+Updated Task:
+ 2023-10-09 08:37  |  gzmkin  |  Learn to focus  |  done @4 min
+
+ 
+like:
+done aaaaaa Completed
+or:
+done aaaaaa
+or:
+done
+or:
+done Deferred
+
+whe status is not provided, a default "done" status is assigned to the task.
+when task id is not provided, the chronologicaly latest task is being addressed.
+it is possible to assign status without assigning task id if the status is not the same as any of the task ids in the current
+status must be a single word. any further words will be ignored and only the first one will be used
+
+
+---
+
+new <message>
+
+Creates the new task. Be careful not to include special symbols, that shell won't treat pure text - their use will cause unexpected consequences. The special symbols are: | < > " ' @ \ 
+
+
+done [task id] [status]
+
+If no task id is provided, then the most recent task is marked as done. 
+
+Adds the status to the task. If no status is provided, then the status becomes "done". Status must be a single word.
+
+Also see: undone and status
+
+
+
+undone [task id]
+
+Removes the status from the task. If no task id is provided, the most recent task with the status is unmarked.
+
+Also see: done and status
+
+
+
+shell
+
+Enables a simple shell that allows to work with the tasks without having to enter dododo every time. Shell also offers autocompletion of task id (enter couple of characters and press Tab).
+
+Enter with no command will list the tasks.
+
+To quit the shell type quit.
+
+
+delete <task id> [possible multiple task ids]
+
+Deletes one or more tasks from the current task list, regardless of their status. Once deleted, the task can not be restored.
+
+
+
+edit [editor]
+
+Opens the current in preferred editor. If no editor is set as preferred, a choice of available compatible editors will be offered. The chosen editor becomes preferred editor.
+
+Also see: editor
+
+
+
+editor
+
+Shows available compatible editors, and sets the chosen one as preferred.
+
+Also see: edit
+
