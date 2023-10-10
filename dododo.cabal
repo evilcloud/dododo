@@ -70,19 +70,14 @@ executable dododo
                     , Commands.EditConfig
                     , Commands.Editor
                     , Commands.Help
-                    , Commands.ListTasks
                     , Commands.New
                     , Commands.Shell
                     , Commands.Undone
                     , Commands.Unknown
-                    , Config
                     , FileManager
-                    , Filter
                     , FindTask
-                    , Status
                     , TaskArchiver
                     , TaskParser
-                    , TasksIO
                     , TimeMachine
                     , Timestamp
 

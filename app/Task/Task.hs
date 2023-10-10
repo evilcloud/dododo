@@ -5,7 +5,7 @@ module Task.Task
   )
 where
 
-import qualified Config
+import qualified Config.Types as ConfigTypes
 import Timestamp (createTimestamp, timeDiffCasual)
 
 data Task = Task
@@ -26,7 +26,7 @@ updateTask task newStatus = do
 
 -- Constants for the format
 separator, prefix :: String
-separator = Config.taskInternalSeparator
+separator = ConfigTypes.taskInternalSeparator
 prefix = " "
 
 -- Function to format a task

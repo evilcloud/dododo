@@ -1,15 +1,15 @@
 module Handlers.Edit (editTask) where
 
 import qualified Commands.Editor as Editor
-import Config
+import qualified Config.Config as Config
 import System.Process (callCommand)
 
 editTask :: Maybe String -> IO ()
 editTask (Just editor) = callCommand $ editor ++ " " ++ Config.current
 editTask Nothing = do
-  defaultEditor <- Editor.getDefaultEditor
-  case defaultEditor of
-    Just de -> callCommand $ de ++ " " ++ Config.current
-    Nothing -> do
+  editor <- Config.editor
+  if null editor
+    then do
       chosenEditor <- Editor.chooseEditor
       callCommand $ chosenEditor ++ " " ++ Config.current
+    else callCommand $ editor ++ " " ++ Config.current

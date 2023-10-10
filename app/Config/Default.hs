@@ -16,5 +16,8 @@ defaultConfig =
         \[SETTINGS]\n\
         \lifetime = 7\n\
         \sync = False\n\
-        \editor = "
+        \editor = \n\
+        \\n\
+        \[OPTIONS]\n\
+        \editor = vim,ed,nvim,neovide,nano,emacs,code,subl,atom"
    in forceEither $ readstring emptyCP configContent

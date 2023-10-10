@@ -1,0 +1,7 @@
+done [task id] [status]
+
+If no task id is provided, then the most recent task is marked as done. 
+
+Adds the status to the task. If no status is provided, then the status becomes "done". Status must be a single word.
+
+Also see: undone and status

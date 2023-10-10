@@ -1,0 +1,29 @@
+Typically a first session is a new task creation with
+
+new [message]
+
+like:
+new first task in the list
+
+
+To check the list of tasks, launch the program with no arguments (or simply Enter in shell).
+
+
+To change the status of a task
+
+done [task id] [status]
+
+like:
+done aaaaaa Completed
+or:
+done aaaaaa
+or:
+done
+or:
+done Deferred
+
+whe status is not provided, a default "done" status is assigned to the task.
+when task id is not provided, the chronologicaly latest task is being addressed.
+it is possible to assign status without assigning task id if the status is not the same as any of the task ids in the current
+status must be a single word. any further words will be ignored and only the first one will be used
+

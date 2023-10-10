@@ -26,6 +26,9 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
+.idea/
+.vscode/
+
 ### macOS ###
 # General
 .DS_Store

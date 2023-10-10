@@ -1,11 +1,11 @@
 module Format.Task (formatTask) where
 
-import qualified Config
+import qualified Config.Types as ConfigTypes
 import Task.Task (Task (..))
 
 -- Constants for the format
 separator, prefix :: String
-separator = Config.taskInternalSeparator
+separator = ConfigTypes.taskInternalSeparator
 prefix = " "
 
 -- Function to format a task

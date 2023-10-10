@@ -1,0 +1,3 @@
+task [task id]
+
+Prints out a task with the specified task id

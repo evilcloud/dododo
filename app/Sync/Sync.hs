@@ -11,7 +11,8 @@ module Sync.Sync
   )
 where
 
-import qualified Config.Config as Config
+-- import qualified Config.Config as Config
+import qualified Config.IO as ConfigIO
 import Control.Monad (filterM, void)
 import Data.ConfigFile
 import Data.Either.Utils (forceEither)
@@ -65,7 +66,7 @@ findSyncDirs dirs = do
 
 syncStatus :: IO ()
 syncStatus = do
-  config <- Config.getConfig
+  config <- ConfigIO.getConfig
   let syncValueEither = get config "PATHS" "sync"
   case syncValueEither of
     Left _ -> putStrLn "off"
@@ -76,5 +77,5 @@ syncStatus = do
 
 updateSyncPath :: FilePath -> IO ()
 updateSyncPath newPath = do
-  newConfig <- Config.updateConfig "PATHS" "sync" newPath
+  newConfig <- ConfigIO.updateConfig "PATHS" "sync" newPath
   return ()

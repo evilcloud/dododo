@@ -2,19 +2,21 @@
 module Task.Delete (deleteTasks) where
 
 import Data.List (elem)
-import Filter (findByTaskId)
+import Handlers.Filter as Filter (findByTaskId)
 import qualified Task.Task as Task (Task (..), formatTask)
-import TasksIO (deleteTaskInCurrent, findTaskById, getAllTasksFromCurrent)
+import qualified TasksArray.TasksIO as TasksIO
+
+-- import qualified TasksIO as TIO
 
 deleteTasks :: [String] -> IO ()
 deleteTasks taskIds = do
-  tasks <- getAllTasksFromCurrent
+  tasks <- TasksIO.getAllTasksFromCurrent
   mapM_
     ( \taskId ->
-        case findTaskById taskId tasks of
+        case TasksIO.findTaskById taskId tasks of
           Nothing -> putStrLn $ "Task ID " ++ taskId ++ " is not found\nNothing deleted"
           Just task -> do
-            deleteTaskInCurrent taskId
+            TasksIO.deleteTaskInCurrent taskId
             putStrLn $ "Deleted:\n" ++ Task.formatTask task
     )
     taskIds

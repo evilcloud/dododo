@@ -4,11 +4,10 @@ module Commands.Undone
   )
 where
 
-import qualified Filter
-import qualified Status
-import Task.Task as Task (Task (..))
 import qualified Task.Undone as Undone
-import qualified TasksIO
+import qualified Handlers.Status as Status
+
+-- import qualified TasksIO
 
 commandUndone :: [String] -> IO ()
 commandUndone [] = Undone.openLatestClosedTask
