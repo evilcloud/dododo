@@ -3,7 +3,10 @@ module Commands.Help where
 helpText :: String
 helpText =
   unlines
-    [ "Usage: dododo [COMMAND] [OPTIONS]",
+    [ "DoDoDo - ephermal microtask manager ad reductum",
+      "v. 0.2.0.0",
+      "",
+      "Usage: dododo [COMMAND] [OPTIONS]",
       "",
       "Available commands:",
       "",
@@ -39,6 +42,9 @@ helpText =
       "",
       "  reset",
       "      Reset the configuration to default values",
+      "",
+      "  version",
+      "      version number",
       "",
       "  help",
       "      Show this help text"

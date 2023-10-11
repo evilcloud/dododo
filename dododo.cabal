@@ -20,7 +20,7 @@ name:               dododo
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.1.0.0
+version:            0.2.0.0
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -80,6 +80,24 @@ executable dododo
                     , TaskParser
                     , TimeMachine
                     , Timestamp
+                    , Commands.Reset
+                    , Commands.Sync
+                    , Config.Config
+                    , Config.Default
+                    , Config.IO
+                    , Config.Types
+                    , Handlers.Edit
+                    , Handlers.Filter
+                    , Handlers.Status
+                    , Sync.Sync
+                    , Task.Delete
+                    , Task.Done
+                    , Task.New
+                    , Task.Task
+                    , Task.Undone
+                    , TasksArray.List
+                    , TasksArray.TasksIO
+                    , Commands.Version
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
