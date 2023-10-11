@@ -14,12 +14,8 @@ getConfig = do
       content <- FileManager.readFromFile configFilePath
       case readstring emptyCP content of
         Right config -> return config
-        Left _ -> handleDefaultConfig
-    else handleDefaultConfig
-  where
-    handleDefaultConfig = do
-      writeConfig defaultConfig
-      return defaultConfig
+        Left _ -> writeDefaultConfig >> return defaultConfig
+    else writeDefaultConfig >> return defaultConfig
 
 writeConfig :: Config -> IO ()
 writeConfig config = do
@@ -35,3 +31,6 @@ updateConfig section option newValue = do
     Right newConfig -> do
       writeConfig newConfig
       return newConfig
+
+writeDefaultConfig :: IO ()
+writeDefaultConfig = writeConfig defaultConfig
