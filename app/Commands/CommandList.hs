@@ -8,6 +8,7 @@ import qualified Commands.Editor as Editor
 -- import qualified Commands.Tomorrow as Tomorrow
 
 import qualified Commands.Help as Help
+import qualified Commands.Lifetime as Lifetime
 import qualified Commands.New as New
 import qualified Commands.Reset as Reset
 import qualified Commands.Sync as Sync
@@ -38,6 +39,7 @@ processCommand (command : args) = do
     "edit" -> Edit.commandEdit args
     "sync" -> Sync.syncCommand args
     "reset" -> Reset.resetConfig
+    "lifetime" -> Lifetime.lifetime args
     "version" -> Version.commandVersion args
     -- "tomorrow" -> Tomorrow.new args
     _ -> Unknown.handleUnknownCommand

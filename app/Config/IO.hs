@@ -1,26 +1,26 @@
 -- Config/IO.hs
 module Config.IO where
 
-import Config.Default (defaultConfig)
+import Config.Default as CD
 import Config.Types (Config, configFilePath)
 import Data.ConfigFile
-import FileManager as FileManager
+import FileManager
 
 getConfig :: IO Config
 getConfig = do
   exists <- FileManager.fileExists configFilePath
   if exists
     then do
-      content <- FileManager.readFromFile configFilePath
-      case readstring emptyCP content of
+      fileContent <- FileManager.readFromFile configFilePath
+      case readstring emptyCP fileContent of
         Right config -> return config
-        Left _ -> writeDefaultConfig >> return defaultConfig
-    else writeDefaultConfig >> return defaultConfig
+        Left _ -> writeDefaultConfig >> return CD.defaultConfig
+    else writeDefaultConfig >> return CD.defaultConfig
 
 writeConfig :: Config -> IO ()
 writeConfig config = do
-  let content = to_string config
-  FileManager.overwriteFile configFilePath content
+  let fileContent = to_string config
+  FileManager.overwriteFile configFilePath fileContent
 
 updateConfig :: SectionSpec -> OptionSpec -> String -> IO Config
 updateConfig section option newValue = do
@@ -33,4 +33,4 @@ updateConfig section option newValue = do
       return newConfig
 
 writeDefaultConfig :: IO ()
-writeDefaultConfig = writeConfig defaultConfig
+writeDefaultConfig = writeConfig CD.defaultConfig
