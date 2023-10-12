@@ -20,7 +20,7 @@ name:               dododo
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.1.0.0
+version:            0.2.0.0
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -62,7 +62,7 @@ executable dododo
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules:    Task.Generator
+    other-modules:    Commands.CommandList
                     , Commands.CommandList
                     , Commands.Delete
                     , Commands.Done
@@ -74,12 +74,33 @@ executable dododo
                     , Commands.Shell
                     , Commands.Undone
                     , Commands.Unknown
+                    , Commands.Version
+                    , Commands.Lifetime
+                    , Commands.Reset
+                    , Commands.Sync
+                    , Task.Generator
+                    , Task.Delete
+                    , Task.Done
+                    , Task.New
+                    , Task.Task
+                    , Task.Undone
+                    , TasksArray.List
+                    , TasksArray.TasksIO
                     , FileManager
                     , FindTask
                     , TaskArchiver
                     , TaskParser
                     , TimeMachine
                     , Timestamp
+                    , Config.Config
+                    , Config.Default
+                    , Config.IO
+                    , Config.Types
+                    , Config.Lifetime
+                    , Handlers.Edit
+                    , Handlers.Filter
+                    , Handlers.Status
+                    , Sync.Sync
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -96,7 +117,6 @@ executable dododo
                     , containers
                     , process
                     , haskeline
-                    , yaml
                     , bytestring
                     , aeson
                     , aeson-pretty

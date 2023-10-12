@@ -10,11 +10,9 @@ module Config.Config
   )
 where
 
-import Config.Default (defaultConfig)
 import Config.IO (getConfig, updateConfig, writeConfig)
 import Config.Types (Config, configFilePath)
 import Data.ConfigFile
-import Data.Either
 import Data.Either.Utils (forceEither)
 import System.IO.Unsafe (unsafePerformIO)
 
