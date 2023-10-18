@@ -78,6 +78,8 @@ executable dododo
                     , ConfigFile
                     , MissingH
                     , mtl
+                    , containers
+                    , split
 
     -- Directories containing source files.
     hs-source-dirs:   app

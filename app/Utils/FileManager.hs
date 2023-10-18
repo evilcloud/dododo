@@ -1,4 +1,4 @@
-module FileManager.FileManager
+module Utils.FileManager
   ( readFromFile,
     appendToFile,
     writeToFile,

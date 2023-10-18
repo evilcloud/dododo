@@ -4,24 +4,18 @@ module Commands.New
   )
 where
 
-import qualified New
-import qualified Printer.Forms as PF
-
--- import qualified Printer.Colors as Colors
+import qualified Help.Commands as Help
+import qualified Printer.Print as Print
+import qualified Task.New as New
 
 newMicro :: [String] -> IO ()
-newMicro [] = putStrLn "No task provided"
+newMicro [] = Print.warningMessage "No task provided"
 newMicro args
-  | last args == "help" = do
-      -- Colors.blue ["do <message>", "", "create a new micro task"]
-      putStrLn "do <message> or <help>"
-      putStrLn ""
-      -- putStrLn "creates a new micro task"
-      PF.normalComment "creates a new micro task"
+  | last args == "help" = Help.getHelp "tomorrow"
   | otherwise = New.createNewMicro $ unwords args
 
 newTomorrow :: [String] -> IO ()
-newTomorrow [] = putStrLn "No task provided"
+newTomorrow [] = Print.warningMessage "No task provided"
 newTomorrow args
-  | last args == "help" = putStrLn "Help for newTomorrow: ..."
+  | last args == "help" = Help.getHelp "tomorrow"
   | otherwise = New.createNewTomorrow $ unwords args

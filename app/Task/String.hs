@@ -33,7 +33,7 @@ timeForDisplay utcTime = do
 timeForSave :: TimeFormatter
 timeForSave utcTime = do
   localTime <- toLocalTime utcTime
-  return $ formatTime defaultTimeLocale "%Y-%m-%d %H:%M:%S" localTime
+  return $ formatTime defaultTimeLocale "%Y-%m-%d %H:%M" localTime
 
 timeForSaveDateOnly :: TimeFormatter
 timeForSaveDateOnly utcTime = do
@@ -44,26 +44,30 @@ baseMicroString :: BaseStringFunction Micro
 baseMicroString formatTimeFn separator Micro {..} = do
   timeStr <- formatTimeFn creation
   return $
-    timeStr
+    " "
+      ++ timeStr
       ++ separator
       ++ taskId
       ++ separator
       ++ message
       ++ (if status /= "" then separator ++ status else "")
+      ++ "\n"
 
 baseTomorrowString :: BaseStringFunction Tomorrow
 baseTomorrowString formatTimeFn separator tomorrow@(Tomorrow {..}) = do
   timeStr <- formatTimeFn creation
   return $
-    (if isDone then "[x]" else "[ ]")
+    " "
+      ++ (if isDone then "[x]" else "[ ]")
       ++ separator
       ++ taskId
       ++ separator
       ++ message
+      ++ "\n"
 
 -- Separators
 separatorSymbol :: String
-separatorSymbol = " | "
+separatorSymbol = "  |  "
 
 separatorSpace :: String
 separatorSpace = "  "
@@ -75,13 +79,13 @@ baseStringify baseFn = baseFn timeForDisplay separatorSpace
 -- Micro related functions
 instance Stringify Micro where
   toDisplayString = baseStringify baseMicroString
-  toSaveString micro = baseMicroString timeForSave separatorSymbol micro
+  toSaveString = baseMicroString timeForSave separatorSymbol
   toSimpleString = baseStringify baseMicroString
 
 -- Tomorrow related functions
 instance Stringify Tomorrow where
   toDisplayString = baseStringify baseTomorrowString
-  toSaveString tomorrow = baseTomorrowString timeForSaveDateOnly separatorSymbol tomorrow
+  toSaveString = baseTomorrowString timeForSaveDateOnly separatorSymbol
   toSimpleString = baseStringify baseTomorrowString
 
 -- Task related functions

@@ -1,4 +1,4 @@
-module Format.Parse (parseMicro) where
+module Task.Parse (parseMicro) where
 
 import Data.List.Split (splitOn)
 import Data.Maybe (listToMaybe)

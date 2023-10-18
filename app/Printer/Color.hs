@@ -1,31 +1,48 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Printer.Color
   ( blue,
     yellow,
     red,
     green,
+    darkGray,
+    magenta,
+    cyan,
   )
 where
 
-blue :: [String] -> IO ()
-blue lines = do
-  putStrLn "\ESC[1;34m"
-  putStr $ unlines lines
+class Printable a where
+  toLines :: a -> [String]
+
+instance Printable String where
+  toLines s = [s]
+
+instance Printable [String] where
+  toLines = id
+
+colorPrint :: (Printable a) => String -> a -> IO ()
+colorPrint colorCode lines = do
+  putStrLn colorCode
+  putStr $ unlines $ toLines lines
   putStrLn "\ESC[m"
 
-yellow :: [String] -> IO ()
-yellow lines = do
-  putStrLn "\ESC[1;33m"
-  putStr $ unlines lines
-  putStrLn "\ESC[m"
+blue :: (Printable a) => a -> IO ()
+blue = colorPrint "\ESC[1;34m"
 
-red :: [String] -> IO ()
-red lines = do
-  putStrLn "\ESC[1;31m"
-  putStr $ unlines lines
-  putStrLn "\ESC[m"
+yellow :: (Printable a) => a -> IO ()
+yellow = colorPrint "\ESC[1;33m"
 
-green :: [String] -> IO ()
-green lines = do
-  putStrLn "\ESC[1;32m"
-  putStr $ unlines lines
-  putStrLn "\ESC[m"
+red :: (Printable a) => a -> IO ()
+red = colorPrint "\ESC[1;31m"
+
+green :: (Printable a) => a -> IO ()
+green = colorPrint "\ESC[1;32m"
+
+cyan :: (Printable a) => a -> IO ()
+cyan = colorPrint "\ESC[1;36m"
+
+magenta :: (Printable a) => a -> IO ()
+magenta = colorPrint "\ESC[1;35m"
+
+darkGray :: (Printable a) => a -> IO ()
+darkGray = colorPrint "\ESC[1;90m"
