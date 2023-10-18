@@ -1,27 +1,73 @@
-module Collection.Parser where
+-- {-# LANGUAGE DuplicateRecordFields #-}
+-- module Task.Parser where
+-- import Data.Char (isSpace)
+-- import Data.List.Split (splitOn)
+-- import Data.Maybe (isJust)
+-- import Data.Time.Clock (UTCTime)
+-- import Data.Time.Format (defaultTimeLocale, parseTimeM)
+-- import Task.Model (Micro (..), Task (..), Tomorrow (..))
+-- sanitize :: String -> String
+-- sanitize = dropWhile isSpace . reverse . dropWhile isSpace . reverse
+-- parseTask :: String -> Maybe Task
+-- parseTask str =
+--   let parts = map sanitize $ splitOn "  |  " str
+--    in if isMicro parts
+--         then MicroTask <$> parseMicro parts
+--         else TomorrowTask <$> parseTomorrow parts
+--   where
+--     isMicro = isJust . (parseTimeM True defaultTimeLocale "%Y-%m-%d %H:%M" :: String -> Maybe UTCTime) . head
+--     parseMicro [_date, timeStr, taskId, message, statusDuration] = do
+--       time <- parseTimeM True defaultTimeLocale "%Y-%m-%d %H:%M" timeStr
+--       let (status, duration) =
+--             if null statusDuration
+--               then ("", "")
+--               else case splitOn "@" statusDuration of
+--                 [s, d] -> (sanitize s, sanitize d)
+--                 _ -> ("", "")
+--       return Micro {creation = time, taskId = taskId, message = message, status = status, duration = duration}
+--     parseMicro _ = Nothing
+--     parseTomorrow [checkbox, taskId, message] = do
+--       time <- parseTimeM True defaultTimeLocale "%Y-%m-%d" taskId
+--       let done = if null checkbox then False else checkbox == "[x]"
+--       return Tomorrow {isDone = done, taskId = taskId, creation = time, message = message}
+--     parseTomorrow _ = Nothing
+{-# LANGUAGE DuplicateRecordFields #-}
 
-import Control.Monad (guard)
+module Task.Parser where
+
+import Data.Char (isSpace)
 import Data.List.Split (splitOn)
-import Data.Maybe (listToMaybe)
-import Data.Time.Format (defaultTimeLocale, parseTimeOrError)
+import Data.Maybe (isJust)
+import Data.Time.Clock (UTCTime)
+import Data.Time.Format (defaultTimeLocale, parseTimeM)
 import Task.Model (Micro (..), Task (..), Tomorrow (..))
 
+sanitize :: String -> String
+sanitize = dropWhile isSpace . reverse . dropWhile isSpace . reverse
+
 parseTask :: String -> Maybe Task
-parseTask str
-  | isMicro str = MicroTask <$> parseMicro str
-  | otherwise = TomorrowTask <$> parseTomorrow str
+parseTask str =
+  let parts = map sanitize $ splitOn "  |  " str
+   in if isMicro parts
+        then MicroTask <$> parseMicro parts
+        else TomorrowTask <$> parseTomorrow parts
   where
-    isMicro = (== ' ') . head -- assuming Micro tasks start with a space
-    parseMicro s = do
-      let parts = splitOn "  |  " s
-      guard (length parts == 5)
-      let [_, timeStr, taskId, message, status] = parts
-          time = parseTimeOrError True defaultTimeLocale "%Y-%m-%d %H:%M" timeStr
-      return Micro {creation = time, taskId = taskId, message = message, status = status, duration = 0}
-    parseTomorrow s = do
-      let parts = splitOn "  |  " s
-      guard (length parts == 4)
-      let [_, checkbox, taskId, message] = parts
-          time = parseTimeOrError True defaultTimeLocale "%Y-%m-%d" taskId
-          done = checkbox == "[x]"
+    isMicro = isJust . (parseTimeM True defaultTimeLocale "%Y-%m-%d %H:%M" :: String -> Maybe UTCTime) . head
+    parseMicro [dateTimeStr, taskId, message, statusDuration] = do
+      time <- parseTimeM True defaultTimeLocale "%Y-%m-%d %H:%M" dateTimeStr
+      let (status, duration) =
+            if null statusDuration
+              then ("", "")
+              else case splitOn "@" statusDuration of
+                [s, d] -> (sanitize s, sanitize d)
+                _ -> ("", "")
+      return Micro {creation = time, taskId = taskId, message = message, status = status, duration = duration}
+    parseMicro [dateTimeStr, taskId, message] = do
+      time <- parseTimeM True defaultTimeLocale "%Y-%m-%d %H:%M" dateTimeStr
+      return Micro {creation = time, taskId = taskId, message = message, status = "", duration = ""}
+    parseMicro _ = Nothing
+    parseTomorrow [checkbox, taskId, message] = do
+      time <- parseTimeM True defaultTimeLocale "%Y-%m-%d" taskId
+      let done = if null checkbox then False else checkbox == "[x]"
       return Tomorrow {isDone = done, taskId = taskId, creation = time, message = message}
+    parseTomorrow _ = Nothing

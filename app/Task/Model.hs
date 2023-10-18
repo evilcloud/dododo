@@ -15,7 +15,7 @@ data Micro = Micro
     taskId :: String,
     message :: String,
     status :: String,
-    duration :: NominalDiffTime
+    duration :: String
   }
   deriving (Show)
 

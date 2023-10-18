@@ -1,7 +1,6 @@
 module Task.IO where
 
 import qualified Config.Config as Config
-import qualified Task.Model as TM
 import qualified Utils.FileManager as FileManager
 
 addMicroToFile :: String -> IO ()

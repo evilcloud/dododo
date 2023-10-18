@@ -1,5 +1,6 @@
 module Commands.Commands where
 
+import qualified Collection.IO as CIO
 import qualified Commands.Help as Help
 import qualified Commands.Lifetime as Lifetime
 import qualified Commands.New as New
@@ -20,4 +21,5 @@ processCommand (command : args)
       "reset" -> Reset.resetConfig args
       "lifetime" -> Lifetime.lifetime args
       "help" -> Help.commandHelp args
+      "collection" -> CIO.loadTasks
       _ -> Unknown.unknown

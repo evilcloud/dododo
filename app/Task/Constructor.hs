@@ -10,7 +10,7 @@ newMicro :: String -> IO Micro
 newMicro msg = do
   currentUTCTime <- currentTime
   id <- TaskId.generateId
-  return Micro {status = "", creation = currentUTCTime, taskId = id, message = msg, duration = 0}
+  return Micro {status = "", creation = currentUTCTime, taskId = id, message = msg, duration = ""}
 
 newTomorrow :: String -> IO Tomorrow
 newTomorrow msg = do

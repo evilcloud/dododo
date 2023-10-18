@@ -50,8 +50,7 @@ baseMicroString formatTimeFn separator Micro {..} = do
       ++ taskId
       ++ separator
       ++ message
-      ++ (if status /= "" then separator ++ status else "")
-      ++ "\n"
+      ++ (if status /= "" then separator ++ status ++ " @" ++ duration else "")
 
 baseTomorrowString :: BaseStringFunction Tomorrow
 baseTomorrowString formatTimeFn separator tomorrow@(Tomorrow {..}) = do
@@ -63,7 +62,6 @@ baseTomorrowString formatTimeFn separator tomorrow@(Tomorrow {..}) = do
       ++ taskId
       ++ separator
       ++ message
-      ++ "\n"
 
 -- Separators
 separatorSymbol :: String
@@ -74,7 +72,7 @@ separatorSpace = "  "
 
 -- Helper function for Stringify instances
 baseStringify :: BaseStringFunction a -> a -> IO String
-baseStringify baseFn = baseFn timeForDisplay separatorSpace
+baseStringify baseFn = baseFn timeForDisplay separatorSymbol
 
 -- Micro related functions
 instance Stringify Micro where
