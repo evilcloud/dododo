@@ -37,7 +37,8 @@ commands =
         [ "lifetime [number of days]",
           "",
           "if no arguments are provided `lifetime` will display the lifetime of micro tasks as per config",
-          "if a number is provided, `lifetime` will set this number as the lifetime in days in the config"
+          "if a number is provided, `lifetime` will set this number as the lifetime in days in the config",
+          "lifetime argument must be a number"
         ]
       ),
       ( "help",

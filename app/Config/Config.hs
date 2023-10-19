@@ -7,6 +7,7 @@ module Config.Config
     past,
     lifetime,
     editor,
+    updateConfig,
   )
 where
 

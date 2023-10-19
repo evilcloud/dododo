@@ -22,4 +22,4 @@ processCommand (command : args)
       "lifetime" -> Lifetime.lifetime args
       "help" -> Help.commandHelp args
       "collection" -> CIO.loadTasks
-      _ -> Unknown.unknown
+      _ -> Unknown.unknown (command : args)

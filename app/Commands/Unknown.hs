@@ -1,7 +1,9 @@
 module Commands.Unknown (unknown) where
 
+import qualified Help.AllCommands as HAC
 import qualified Printer.Print as Print
 
-unknown :: IO ()
-unknown = do
-  Print.warningMessage "Unknown command"
+unknown :: [String] -> IO ()
+unknown args = do
+  Print.warningMessage $ "Unknown command: " ++ (unwords args)
+  HAC.printAvailableCommands

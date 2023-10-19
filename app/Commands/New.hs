@@ -10,12 +10,8 @@ import qualified Task.New as New
 
 newMicro :: [String] -> IO ()
 newMicro [] = Print.warningMessage "No task provided"
-newMicro args
-  | last args == "help" = Help.getHelp "tomorrow"
-  | otherwise = New.createNewMicro $ unwords args
+newMicro args = New.createNewMicro $ unwords args
 
 newTomorrow :: [String] -> IO ()
 newTomorrow [] = Print.warningMessage "No task provided"
-newTomorrow args
-  | last args == "help" = Help.getHelp "tomorrow"
-  | otherwise = New.createNewTomorrow $ unwords args
+newTomorrow args = New.createNewTomorrow $ unwords args

@@ -21,21 +21,18 @@ instance Commentable [String] where
 
 normalComment :: (Commentable a) => a -> IO ()
 normalComment comment = do
-  putStrLn ""
+  -- putStrLn ""
   Printer.Color.blue $ toComment comment
-  putStrLn ""
 
 warningMessage :: (Commentable a) => a -> IO ()
 warningMessage comment = do
-  putStrLn ""
+  -- putStrLn ""
   Printer.Color.yellow $ toComment comment
-  putStrLn ""
 
 helpMessage :: (Commentable a) => a -> IO ()
 helpMessage comment = do
-  putStrLn ""
+  -- putStrLn ""
   Printer.Color.darkGray $ toComment comment
-  putStrLn ""
 
 standardOutput :: (Commentable a) => a -> IO ()
 standardOutput comment = do
