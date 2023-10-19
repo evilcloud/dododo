@@ -1,8 +1,8 @@
-module Commands.Editor where
+module Commands.Editor (commandEditor) where
 
-import qualified Edit.Editor as Editor
-import qualified Help.Commands as Help
+import qualified Config.Editor as CE
+import qualified Edit.Editor as EE
 
-editor :: [String] -> IO ()
-editor [] = Editor.showDefaultEditor
-editor args = Editor.chooseEditor args
+commandEditor :: [String] -> IO ()
+commandEditor [] = EE.printCurrentEditor
+commandEditor (editor : _) = CE.setEditor editor

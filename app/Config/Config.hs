@@ -7,7 +7,9 @@ module Config.Config
     past,
     lifetime,
     editor,
+    editors,
     updateConfig,
+    writeConfig,
   )
 where
 
@@ -38,3 +40,8 @@ editor :: IO String
 editor = do
   config <- getConfig
   return $ forceEither $ get config "SETTINGS" "editor"
+
+editors :: IO String
+editors = do
+  config <- getConfig
+  return $ forceEither $ get config "OPTIONS" "editors"

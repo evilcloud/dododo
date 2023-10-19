@@ -17,6 +17,9 @@ getConfig = do
         Left _ -> writeDefaultConfig >> return CD.defaultConfig
     else writeDefaultConfig >> return CD.defaultConfig
 
+get :: Config -> SectionSpec -> OptionSpec -> Either CPError String
+get config section option = Data.ConfigFile.get config section option
+
 writeConfig :: Config -> IO ()
 writeConfig config = do
   let fileContent = to_string config

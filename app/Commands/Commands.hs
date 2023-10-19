@@ -6,6 +6,7 @@ import qualified Commands.Lifetime as Lifetime
 import qualified Commands.New as New
 import qualified Commands.Reset as Reset
 import qualified Commands.Unknown as Unknown
+import qualified Commands.Editor as Editor
 import Control.Monad (void)
 import Data.Maybe (listToMaybe)
 import qualified Printer.Print as Print
@@ -22,4 +23,5 @@ processCommand (command : args)
       "lifetime" -> Lifetime.lifetime args
       "help" -> Help.commandHelp args
       "collection" -> CIO.loadTasks
+      "editor" -> Editor.commandEditor args
       _ -> Unknown.unknown (command : args)

@@ -4,8 +4,15 @@ module Config.Exported
     past,
     lifetime,
     taskInternalSeparator,
+    editor,
+    editors,
   )
 where
+
+import Config.IO (get, getConfig)
+import Data.Either.Utils (forceEither)
+import Data.List.Split (splitOn)
+import System.IO.Unsafe (unsafePerformIO)
 
 -- type Config = ConfigParser
 
@@ -27,6 +34,16 @@ lifetime :: String
 lifetime = unsafePerformIO $ do
   config <- getConfig
   return $ forceEither $ get config "SETTINGS" "lifetime"
+
+editor :: String
+editor = unsafePerformIO $ do
+  config <- getConfig
+  return $ forceEither $ get config "SETTINGS" "editor"
+
+editors :: [String]
+editors = unsafePerformIO $ do
+  config <- getConfig
+  return $ splitOn "," $ forceEither $ get config "OPTIONS" "editors"
 
 taskInternalSeparator :: String
 taskInternalSeparator = "  |  "
