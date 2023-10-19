@@ -7,6 +7,7 @@ module Edit.Editor
 where
 
 import qualified Config.Config as Config
+import qualified Config.Default as CD
 import Control.Monad (filterM, forM_, void)
 import Data.Either (either)
 import Data.Maybe (isJust)

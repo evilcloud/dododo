@@ -41,6 +41,9 @@ get_fcontent.sh
 Icon
 
 
+.idea
+.idea/
+
 # Thumbnails
 ._*
 
