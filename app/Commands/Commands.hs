@@ -1,12 +1,12 @@
 module Commands.Commands where
 
 import qualified Collection.IO as CIO
+import qualified Commands.Editor as Editor
 import qualified Commands.Help as Help
 import qualified Commands.Lifetime as Lifetime
 import qualified Commands.New as New
 import qualified Commands.Reset as Reset
 import qualified Commands.Unknown as Unknown
-import qualified Commands.Editor as Editor
 import Control.Monad (void)
 import Data.Maybe (listToMaybe)
 import qualified Printer.Print as Print
@@ -24,4 +24,6 @@ processCommand (command : args)
       "help" -> Help.commandHelp args
       "collection" -> CIO.loadTasks
       "editor" -> Editor.commandEditor args
+      "edit" -> Editor.commandEdit args
+      "config" -> Editor.commandConfig args
       _ -> Unknown.unknown (command : args)

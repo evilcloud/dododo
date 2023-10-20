@@ -1,60 +1,82 @@
 module Edit.Editor
-  ( getDefaultEditor,
-    choseEditor,
+  ( getAvailableEditors,
+    printAvailableEditors,
+    setEditor,
     printCurrentEditor,
+    isAvailableEditor,
+    editFile,
   )
 where
 
 import qualified Config.Default as CD
 import qualified Config.Editor as ConfEditor
 import qualified Config.Exported as CE
-import qualified Config.IO as CIO
-import Control.Monad (filterM, forM_)
+import Control.Monad (filterM)
+import Data.List (intercalate)
 import Data.Maybe (isJust)
+import qualified Printer.Print as Print
+import System.Cmd (system)
 import System.Directory (findExecutable)
+import qualified Utils.Exec as Exec
 
-possibleEditors :: [String]
-possibleEditors = CD.editors
+-- Function returns the crossesection of editors that are prescribed in config
+-- and editors that are installed on the current system
+getAvailableEditors :: IO [String]
+getAvailableEditors = filterM (fmap isJust . findExecutable) CD.editors
 
-availableEditors :: IO [String]
-availableEditors = filterM (fmap isJust . findExecutable) possibleEditors
+printAvailableEditors :: IO ()
+printAvailableEditors = do
+  editors <- getAvailableEditors
+  Print.normalComment "Available editors:"
+  let editorsString = intercalate "\t" editors
+  Print.normalComment editorsString
 
-currentEditor :: String
-currentEditor = CE.editor
-
--- Function to let the user chose an editor from the list of available ones
-choseEditor :: IO ()
-choseEditor = do
-  editors <- availableEditors
-  putStrLn "Available editors:"
-  forM_ (zip [1 ..] editors) $ \(i, editor) -> do
-    putStrLn $ show i ++ ". " ++ editor
-  putStrLn "Please choose an editor:"
-  choice <- getLine
-  let choiceInt = read choice :: Int
-  if choiceInt > 0 && choiceInt <= length editors
+setEditor :: String -> IO ()
+setEditor chosenEditor = do
+  availableEditors <- getAvailableEditors
+  if chosenEditor `elem` availableEditors
     then do
-      let chosenEditor = editors !! (choiceInt - 1)
-      putStrLn $ "You chose " ++ chosenEditor ++ "."
+      Print.normalComment $ "Default editor set to: " ++ chosenEditor
       ConfEditor.setEditor chosenEditor
     else do
-      putStrLn "Invalid choice. Please try again."
-      choseEditor
-
--- Function to return the default editor, if there is a defaul editor, that is also available editor
--- If there is no such editor, then chosEditor and try again
-getDefaultEditor :: IO String
-getDefaultEditor = do
-  let defaultEditor = CE.editor
-  isAvailable <- isJust <$> findExecutable defaultEditor
-  if isAvailable
-    then return defaultEditor
-    else do
-      putStrLn "Default editor is not available. Please choose an editor:"
-      choseEditor
-      getDefaultEditor
+      if chosenEditor == ""
+        then Print.warningMessage "No editor selected"
+        else Print.warningMessage $ "The editor `" ++ chosenEditor ++ "` is not available in your system"
+      Print.warningMessage "Commands `edit` and `config` may be unavailable"
+      printAvailableEditors
 
 printCurrentEditor :: IO ()
 printCurrentEditor = do
-  editor <- getDefaultEditor
-  putStrLn $ "Editor: " ++ editor
+  let currentEditor = CE.editor
+  availableEditors <- getAvailableEditors
+  if currentEditor `elem` availableEditors
+    then Print.normalComment $ "Editor: " ++ currentEditor
+    else do
+      Print.warningMessage $ "The editor `" ++ currentEditor ++ "` is not available in your system"
+      Print.warningMessage "Commands `edit` and `config` may be unavailable"
+      printAvailableEditors
+
+isAvailableEditor :: String -> IO Bool
+isAvailableEditor requestedEditor = do
+  availableEditors <- getAvailableEditors
+  return (requestedEditor `elem` availableEditors)
+
+-- Function that takes filepath as input
+-- it checks the current editor for validity
+-- if the default editor is valid, then it opens the file in this editor
+-- otherwise it informs that "Editing is not posppible with the current editor: " xxx
+-- and does setEditor
+editFile :: String -> IO ()
+editFile filename = do
+  let editor = CE.editor
+  isAvailable <- isAvailableEditor editor
+  if isAvailable
+    then do
+      putStrLn $ "Running command: " ++ editor ++ " " ++ filename
+      _ <- system $ editor ++ " " ++ filename
+      return ()
+    else do
+      Print.warningMessage $ "The editor `" ++ editor ++ "` is not available in your system"
+      Print.warningMessage "Commands `edit` and `config` may be unavailable"
+      printAvailableEditors
+      setEditor editor

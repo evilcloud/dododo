@@ -1,21 +1,19 @@
-module Commands.Edit where
+module Edit.Edit
+  ( editCurrent,
+    editConfig,
+  )
+where
 
-import qualified Commands.Editor as Editor
-import qualified Config.Config as Config
-import System.Process (callCommand)
+import qualified Config.Config as CC
+import qualified Config.Exported as ConfExp
+import qualified Edit.Editor as EE
 
--- Function to edit a task file using the default editor
-editTaskFile :: [String] -> IO ()
-editTaskFile _ = do
-  editorResult <- Editor.getDefaultEditor
-  config <- Config.getConfig
-  let currentFilePathResult = Config.configFilePath
-  case currentFilePathResult of
-    Right currentFilePath -> case editorResult of
-      Just editor -> System.Process.callCommand $ editor ++ " " ++ currentFilePath
-      Nothing -> putStrLn "No editor set"
-    _ -> return () -- Do nothing if currentFilePathResult is Left
+editCurrent :: IO ()
+editCurrent = do
+  let currentFilePath = CC.current
+  EE.editFile currentFilePath
 
--- Function to open a file in a given editor
-openFileInEditor :: String -> String -> IO ()
-openFileInEditor editor fileName = callCommand $ editor ++ " " ++ fileName
+editConfig :: IO ()
+editConfig = do
+  let configFilePath = ConfExp.configFilePath
+  EE.editFile configFilePath
