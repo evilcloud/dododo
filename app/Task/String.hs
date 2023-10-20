@@ -4,6 +4,7 @@ module Task.String
   ( toDisplayString,
     toSaveString,
     toSimpleString,
+    Stringify,
   )
 where
 

@@ -22,7 +22,7 @@ processCommand (command : args)
       "reset" -> Reset.resetConfig args
       "lifetime" -> Lifetime.lifetime args
       "help" -> Help.commandHelp args
-      "collection" -> CIO.loadTasks
+      "collection" -> void CIO.loadTasks
       "editor" -> Editor.commandEditor args
       "edit" -> Editor.commandEdit args
       "config" -> Editor.commandConfig args
