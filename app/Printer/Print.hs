@@ -5,6 +5,8 @@ module Printer.Print
     warningMessage,
     helpMessage,
     standardOutput,
+    printTask,
+    printTaskList,
   )
 where
 
@@ -38,4 +40,14 @@ standardOutput :: (Commentable a) => a -> IO ()
 standardOutput comment = do
   putStrLn ""
   putStrLn $ toComment comment
+  putStrLn ""
+
+printTask :: String -> IO ()
+printTask task = do
+  putStrLn task
+
+printTaskList :: [String] -> IO ()
+printTaskList tasks = do
+  putStrLn ""
+  mapM_ putStrLn tasks
   putStrLn ""

@@ -1,0 +1,15 @@
+module Printer.Collection
+(
+    printTasks,
+)
+where
+
+import qualified Task.String as TS
+import qualified Printer.Print as Print
+
+printTasks :: (TS.Stringify a) => String -> [a] -> IO ()
+printTasks taskType tasks = do
+--   putStrLn taskType
+  forM_ tasks $ \task -> do
+    taskStr <- TS.toSimpleString task
+    Print.printTask taskStr

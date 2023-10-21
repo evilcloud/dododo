@@ -72,7 +72,7 @@ editFile filename = do
   isAvailable <- isAvailableEditor editor
   if isAvailable
     then do
-      putStrLn $ "Running command: " ++ editor ++ " " ++ filename
+      Print.warningMessage $ "Opening " ++ filename ++ " in " ++ editor
       _ <- system $ editor ++ " " ++ filename
       return ()
     else do

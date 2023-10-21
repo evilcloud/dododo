@@ -16,4 +16,4 @@ newTomorrow :: String -> IO Tomorrow
 newTomorrow msg = do
   currentUTCTime <- currentTime
   id <- TaskId.generateId
-  return Tomorrow {isDone = False, taskId = id, creation = currentUTCTime, message = msg}
+  return Tomorrow {isDone = Undone, taskId = id, creation = currentUTCTime, message = msg}

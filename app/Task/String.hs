@@ -33,8 +33,8 @@ timeForDisplay utcTime = do
 
 timeForSave :: TimeFormatter
 timeForSave utcTime = do
-  localTime <- toLocalTime utcTime
-  return $ formatTime defaultTimeLocale "%Y-%m-%d %H:%M" localTime
+  -- localTime <- toLocalTime utcTime
+  return $ formatTime defaultTimeLocale "%Y-%m-%d %H:%M" utcTime
 
 timeForSaveDateOnly :: TimeFormatter
 timeForSaveDateOnly utcTime = do
@@ -56,9 +56,12 @@ baseMicroString formatTimeFn separator Micro {..} = do
 baseTomorrowString :: BaseStringFunction Tomorrow
 baseTomorrowString formatTimeFn separator tomorrow@(Tomorrow {..}) = do
   timeStr <- formatTimeFn creation
+  let doneStr = case isDone of
+        Done -> "[x]"
+        Undone -> "[ ]"
   return $
     " "
-      ++ (if isDone then "[x]" else "[ ]")
+      ++ doneStr
       ++ separator
       ++ taskId
       ++ separator
